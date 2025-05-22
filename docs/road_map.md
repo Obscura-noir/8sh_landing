@@ -2,10 +2,10 @@
 
 ## Обзор проекта
 
-**8sh.ru** - унифицированная платформа международных платежей, объединяющая агрегацию платежных решений, прямые сервисы и криптовалютные инструменты в единой экосистеме.
+**8sh.ru** - унифицированная веб-платформа для управления международными финансовыми операциями с AI-оптимизацией, аналитикой и образовательными инструментами.
 
-**Общий timeline:** 14 месяцев (56 спринтов по 1-2 недели)
-**Основные этапы:** MVP → Beta → Стейблкоин модуль → Полная версия
+**Общий timeline:** 10 месяцев (40 спринтов по 1-2 недели)
+**Основные этапы:** MVP → Beta → Advanced Features → Enterprise
 
 ---
 
@@ -156,88 +156,77 @@ export class UsersService {
 }
 ```
 
-## Спринт 5-6: Интеграция платежных провайдеров (2 недели)
+## Спринт 5-6: Финансовые данные и аналитика (2 недели)
 
 **Цели:**
-- Создать Payment Service для управления провайдерами
-- Интегрировать 10+ ключевых платежных провайдеров
-- Реализовать единый API для всех провайдеров
-- Создать систему мониторинга провайдеров
+- Создать систему сбора финансовых данных
+- Интегрировать источники валютных курсов
+- Реализовать базовую аналитику
+- Создать систему кэширования данных
 
 **Задачи:**
 
-1. **Payment Service архитектура**
-   - Абстрактный Provider Interface
-   - Factory pattern для создания провайдеров
-   - Queue system для асинхронной обработки
-   - Rate limiting и circuit breaker паттерны
+1. **Data Collection Service**
+   - Интеграция с API курсов валют (CoinGecko, Alpha Vantage, ЦБ РФ)
+   - Система агрегации данных из множественных источников
+   - Real-time data processing pipeline
+   - Data validation и cleansing
 
-2. **Интеграция провайдеров**
-   - Wise (ex-TransferWise) API
-   - Remitly API
-   - Western Union API
-   - MoneyGram API
-   - Payoneer API
-   - И еще 5-7 ключевых провайдеров
+2. **Analytics Engine**
+   - Базовые расчеты трендов и статистики
+   - Historical data storage и analysis
+   - Rate comparison algorithms
+   - Market volatility indicators
 
-3. **Система мониторинга**
-   - Health checks для всех провайдеров
-   - Success rate tracking
-   - Response time monitoring
-   - Automatic failover механизмы
+3. **Caching и Performance**
+   - Redis caching для часто запрашиваемых данных
+   - Background jobs для обновления данных
+   - API rate limiting для external sources
+   - Data freshness monitoring
 
 **Критерии приемки:**
-- 10+ провайдеров успешно интегрированы
-- Единый API для получения курсов
-- Мониторинг показывает статус провайдеров
-- Queue обрабатывает запросы асинхронно
+- Данные курсов обновляются в реальном времени
+- Система выдерживает высокую нагрузку запросов
+- Аналитические расчеты корректны
+- Fallback механизмы работают при недоступности источников
 
-**Рабочий функционал:** Система агрегации курсов от множественных провайдеров с мониторингом.
+**Рабочий функционал:** Система сбора и анализа финансовых данных с real-time обновлениями.
 
 ```typescript
-// payment-provider.interface.ts
-export interface PaymentProvider {
-  id: string;
-  name: string;
-  supportedCurrencies: string[];
-  
-  getExchangeRate(from: string, to: string): Promise<ExchangeRateResponse>;
-  createTransaction(request: TransactionRequest): Promise<TransactionResponse>;
-  getTransactionStatus(id: string): Promise<TransactionStatus>;
-  calculateFees(amount: number, from: string, to: string): Promise<FeeCalculation>;
-}
-
-// wise.provider.ts
+// data-collection.service.ts
 @Injectable()
-export class WiseProvider implements PaymentProvider {
-  id = 'wise';
-  name = 'Wise';
-  supportedCurrencies = ['USD', 'EUR', 'GBP', 'RUB', 'CNY'];
+export class DataCollectionService {
+  constructor(
+    private httpService: HttpService,
+    private cacheService: CacheService
+  ) {}
 
-  async getExchangeRate(from: string, to: string): Promise<ExchangeRateResponse> {
-    const response = await this.httpService.get('/v1/rates', {
-      params: { source: from, target: to }
-    }).toPromise();
+  async getExchangeRates(baseCurrency: string, targetCurrencies: string[]) {
+    const cacheKey = `rates_${baseCurrency}_${targetCurrencies.join('_')}`;
+    const cached = await this.cacheService.get(cacheKey);
+    
+    if (cached) return cached;
 
-    return {
-      providerId: this.id,
-      rate: response.data.rate,
-      timestamp: new Date(),
-      ttl: 300 // 5 минут
-    };
+    // Собираем данные из множественных источников
+    const sources = [
+      this.getCoinGeckoRates(baseCurrency, targetCurrencies),
+      this.getAlphaVantageRates(baseCurrency, targetCurrencies),
+      this.getCBRRates(baseCurrency, targetCurrencies)
+    ];
+
+    const results = await Promise.allSettled(sources);
+    const aggregatedRates = this.aggregateRates(results);
+
+    // Кэшируем на 30 секунд
+    await this.cacheService.set(cacheKey, aggregatedRates, 30);
+    
+    return aggregatedRates;
   }
 
-  async createTransaction(request: TransactionRequest): Promise<TransactionResponse> {
-    // Wise API implementation
-    const quote = await this.createQuote(request);
-    const transfer = await this.createTransfer(quote.id, request);
-    
-    return {
-      providerId: this.id,
-      externalId: transfer.id,
-      status: 'pending',
-      estimatedTime: transfer.deliveryEstimate
-    };
+  private aggregateRates(results: PromiseSettledResult<any>[]): ExchangeRates {
+    // Логика агрегации данных из разных источников
+    // Применяем weighted average, учитываем reliability источников
+    return this.calculateWeightedAverage(results);
   }
 }
 ```
@@ -271,73 +260,12 @@ export class WiseProvider implements PaymentProvider {
    - Персонализация интерфейса
 
 **Критерии приемки:**
-- Компаратор показывает курсы от всех провайдеров
+- Компаратор показывает актуальные курсы
 - Обновление курсов каждые 30 секунд
 - Фильтрация и сортировка работает
 - Адаптивный дизайн на всех устройствах
 
 **Рабочий функционал:** Работающий веб-интерфейс с компаратором курсов в реальном времени.
-
-```typescript
-// components/ExchangeComparator.tsx
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { exchangeApi } from '@/lib/api';
-
-interface ComparatorProps {
-  mode: 'simple' | 'advanced';
-}
-
-export function ExchangeComparator({ mode }: ComparatorProps) {
-  const [fromCurrency, setFromCurrency] = useState('USD');
-  const [toCurrency, setToCurrency] = useState('RUB');
-  const [amount, setAmount] = useState(1000);
-
-  const { data: rates, isLoading } = useQuery({
-    queryKey: ['exchange-rates', fromCurrency, toCurrency, amount],
-    queryFn: () => exchangeApi.getComparison({
-      from: fromCurrency,
-      to: toCurrency,
-      amount
-    }),
-    refetchInterval: 30000, // Обновление каждые 30 секунд
-  });
-
-  return (
-    <div className="max-w-6xl mx-auto p-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <CurrencySelect
-          label="Отправляете"
-          value={fromCurrency}
-          onChange={setFromCurrency}
-        />
-        <AmountInput
-          value={amount}
-          onChange={setAmount}
-          currency={fromCurrency}
-        />
-        <CurrencySelect
-          label="Получаете"
-          value={toCurrency}
-          onChange={setToCurrency}
-        />
-      </div>
-
-      {isLoading ? (
-        <LoadingSkeleton />
-      ) : (
-        <ComparisonTable
-          rates={rates}
-          mode={mode}
-          onSelectProvider={(provider) => handleProviderSelect(provider)}
-        />
-      )}
-    </div>
-  );
-}
-```
 
 ## Спринт 9-10: Система отзывов и рейтингов (2 недели)
 
@@ -351,13 +279,13 @@ export function ExchangeComparator({ mode }: ComparatorProps) {
 
 1. **Community Service**
    - База данных отзывов и рейтингов
-   - Верификация отзывов через транзакции
+   - Верификация отзывов через активность пользователей
    - Система репутации пользователей
    - API для CRUD операций с отзывами
 
 2. **Интерфейс отзывов**
    - Форма оставления отзыва
-   - Отображение рейтингов провайдеров
+   - Отображение рейтингов сервисов
    - Фильтрация отзывов
    - Система "полезности" отзыва
 
@@ -368,186 +296,55 @@ export function ExchangeComparator({ mode }: ComparatorProps) {
    - Admin панель для модерации
 
 **Критерии приемки:**
-- Отзывы можно оставлять только после транзакций
+- Отзывы можно оставлять после использования сервисов
 - Рейтинги корректно агрегируются
 - Модерация блокирует спам
-- Отзывы влияют на сортировку провайдеров
+- Отзывы влияют на отображение контента
 
 **Рабочий функционал:** Система верифицированных отзывов с социальным доказательством.
 
-```typescript
-// reviews.service.ts
-@Injectable()
-export class ReviewsService {
-  async createReview(userId: string, data: CreateReviewDto) {
-    // Проверяем, что пользователь действительно совершал транзакцию
-    const transaction = await this.transactionsService.findUserTransaction(
-      userId,
-      data.providerId,
-      data.transactionId
-    );
-
-    if (!transaction || transaction.status !== 'completed') {
-      throw new ForbiddenException('Отзыв можно оставить только после завершенной транзакции');
-    }
-
-    // Проверяем, что отзыв еще не оставлен
-    const existingReview = await this.reviewsRepository.findOne({
-      userId,
-      transactionId: data.transactionId
-    });
-
-    if (existingReview) {
-      throw new ConflictException('Отзыв уже оставлен для этой транзакции');
-    }
-
-    // Создаем отзыв
-    const review = await this.reviewsRepository.create({
-      ...data,
-      userId,
-      isVerified: true,
-      createdAt: new Date()
-    });
-
-    // Обновляем агрегированный рейтинг провайдера
-    await this.updateProviderRating(data.providerId);
-
-    return review;
-  }
-
-  async getProviderReviews(providerId: string, filters: ReviewFilters) {
-    const queryBuilder = this.reviewsRepository.createQueryBuilder('review')
-      .where('review.providerId = :providerId', { providerId })
-      .andWhere('review.isPublic = true')
-      .leftJoinAndSelect('review.user', 'user')
-      .orderBy('review.createdAt', 'DESC');
-
-    if (filters.minRating) {
-      queryBuilder.andWhere('review.rating >= :minRating', { 
-        minRating: filters.minRating 
-      });
-    }
-
-    if (filters.verified) {
-      queryBuilder.andWhere('review.isVerified = true');
-    }
-
-    return queryBuilder.getMany();
-  }
-}
-```
-
-## Спринт 11-12: Обработка платежей и транзакций (2 недели)
+## Спринт 11-12: Пользовательские портфели и аналитика (2 недели)
 
 **Цели:**
-- Реализовать полный цикл обработки платежей
-- Создать систему бронирования курсов
-- Добавить отслеживание статуса транзакций
+- Реализовать систему пользовательских портфелей
+- Создать персональную аналитику
+- Добавить отслеживание операций
 - Интегрировать уведомления
 
 **Задачи:**
 
-1. **Transaction Service**
-   - Создание и управление транзакциями
-   - State machine для статусов транзакций
-   - Бронирование курсов на 15 минут
-   - Automatic reconciliation с провайдерами
+1. **Portfolio Service**
+   - Создание и управление виртуальными портфелями
+   - Tracking валютных позиций пользователей
+   - Performance analytics для портфелей
+   - Risk assessment и recommendations
 
-2. **Payment Processing**
-   - Инициация платежей через выбранного провайдера
-   - Обработка callbacks от провайдеров
-   - Retry логика для failed транзакций
-   - Refund processing
+2. **Personal Analytics**
+   - Анализ пользовательского поведения
+   - Персональные insights и trends
+   - Goal setting и tracking
+   - Automated reporting
 
 3. **Уведомления**
-   - Email уведомления о статусе
-   - SMS для критических событий
+   - Email уведомления о важных событиях
+   - SMS для критических алертов
    - Push уведомления в браузере
-   - Webhook для API клиентов
+   - Персонализированные recommendation alerts
 
 **Критерии приемки:**
-- Транзакции проходят полный цикл
-- Курсы бронируются на указанное время
-- Статусы обновляются в реальном времени
-- Уведомления отправляются корректно
+- Пользователи могут создавать и управлять портфелями
+- Аналитика показывает корректные данные
+- Уведомления отправляются своевременно
+- Performance tracking работает точно
 
-**Рабочий функционал:** Система обработки платежей с отслеживанием и уведомлениями.
-
-```typescript
-// transaction.service.ts
-@Injectable()
-export class TransactionService {
-  async createTransaction(userId: string, data: CreateTransactionDto) {
-    // Проверяем лимиты пользователя
-    await this.checkUserLimits(userId, data.amount);
-
-    // Получаем актуальный курс и бронируем его
-    const quote = await this.getAndReserveQuote(
-      data.providerId,
-      data.fromCurrency,
-      data.toCurrency,
-      data.amount
-    );
-
-    // Создаем транзакцию
-    const transaction = await this.transactionRepository.create({
-      userId,
-      providerId: data.providerId,
-      externalReference: generateUniqueId(),
-      sourceAmount: data.amount,
-      sourceCurrency: data.fromCurrency,
-      targetCurrency: data.toCurrency,
-      exchangeRate: quote.rate,
-      estimatedTargetAmount: quote.targetAmount,
-      totalFees: quote.fees,
-      status: 'created',
-      quoteExpiry: new Date(Date.now() + 15 * 60 * 1000), // 15 минут
-      createdAt: new Date()
-    });
-
-    // Отправляем уведомление
-    await this.notificationService.sendTransactionCreated(userId, transaction);
-
-    return transaction;
-  }
-
-  async initiatePayment(transactionId: string) {
-    const transaction = await this.getTransaction(transactionId);
-    
-    if (transaction.status !== 'created') {
-      throw new BadRequestException('Транзакция не может быть обработана');
-    }
-
-    if (new Date() > transaction.quoteExpiry) {
-      throw new BadRequestException('Время бронирования курса истекло');
-    }
-
-    // Инициируем платеж через провайдера
-    const provider = this.paymentProviderFactory.create(transaction.providerId);
-    const paymentResult = await provider.createTransaction({
-      amount: transaction.sourceAmount,
-      fromCurrency: transaction.sourceCurrency,
-      toCurrency: transaction.targetCurrency,
-      reference: transaction.externalReference
-    });
-
-    // Обновляем статус
-    await this.updateTransactionStatus(transactionId, 'processing', {
-      externalId: paymentResult.externalId,
-      estimatedCompletion: paymentResult.estimatedTime
-    });
-
-    return paymentResult;
-  }
-}
-```
+**Рабочий функционал:** Система персональных портфелей с аналитикой и уведомлениями.
 
 ## Спринт 13-14: Admin панель и мониторинг (2 недели)
 
 **Цели:**
 - Создать comprehensive admin панель
 - Реализовать мониторинг системы и бизнес-метрик
-- Добавить управление пользователями и транзакциями
+- Добавить управление пользователями и контентом
 - Создать систему алертов
 
 **Задачи:**
@@ -555,14 +352,14 @@ export class TransactionService {
 1. **Admin Service и UI**
    - Dashboard с ключевыми метриками
    - Управление пользователями и KYC
-   - Мониторинг транзакций
-   - Управление провайдерами
+   - Контент модерация
+   - System health monitoring
 
 2. **Business Intelligence**
-   - Аналитика по объемам и конверсии
-   - Отчеты по провайдерам
+   - Аналитика по активности пользователей
+   - Revenue tracking и forecasting
    - User behavior analytics
-   - Revenue tracking
+   - Performance optimization insights
 
 3. **System Monitoring**
    - APM интеграция (New Relic/DataDog)
@@ -643,8 +440,8 @@ export class TransactionService {
 3. **Predictive Analytics**
    - Прогнозирование курсов валют
    - Оптимальное время для операций
-   - Risk assessment для транзакций
-   - Fraud detection базовые алгоритмы
+   - Risk assessment для решений
+   - Market trend analysis
 
 **Критерии приемки:**
 - AI рекомендации работают в реальном времени
@@ -653,75 +450,6 @@ export class TransactionService {
 - Predictive models показывают значимые результаты
 
 **Рабочий функционал:** AI-powered рекомендации и предиктивная аналитика.
-
-```typescript
-// ai.service.ts
-@Injectable()
-export class AIService {
-  constructor(
-    private openai: OpenAI,
-    private mlService: MLService
-  ) {}
-
-  async getTransactionRecommendations(userId: string, request: TransactionRequest) {
-    // Получаем профиль пользователя и историю
-    const userProfile = await this.getUserProfile(userId);
-    const transactionHistory = await this.getTransactionHistory(userId);
-
-    // Генерируем рекомендации через OpenAI
-    const aiRecommendations = await this.generateAIRecommendations(
-      userProfile,
-      request,
-      transactionHistory
-    );
-
-    // Получаем ML предсказания
-    const mlPredictions = await this.mlService.predictOptimalProvider(
-      request,
-      userProfile.preferences
-    );
-
-    // Комбинируем и ранжируем рекомендации
-    const recommendations = this.combineRecommendations(
-      aiRecommendations,
-      mlPredictions
-    );
-
-    return {
-      recommendations,
-      reasoning: aiRecommendations.reasoning,
-      confidence: mlPredictions.confidence
-    };
-  }
-
-  private async generateAIRecommendations(
-    userProfile: UserProfile,
-    request: TransactionRequest,
-    history: Transaction[]
-  ) {
-    const prompt = `
-    Пользователь планирует перевод:
-    - Сумма: ${request.amount} ${request.fromCurrency}
-    - Направление: ${request.fromCurrency} → ${request.toCurrency}
-    - Приоритет: ${userProfile.preferences.priority} (скорость/стоимость/надежность)
-    
-    История операций пользователя: ${JSON.stringify(history.slice(-5))}
-    
-    Доступные провайдеры: ${JSON.stringify(await this.getAvailableProviders(request))}
-    
-    Рекомендуй оптимального провайдера с объяснением выбора.
-    `;
-
-    const response = await this.openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.3
-    });
-
-    return this.parseAIResponse(response.choices[0].message.content);
-  }
-}
-```
 
 ## Спринт 21-24: Community features и gamification (4 недели)
 
@@ -742,14 +470,14 @@ export class AIService {
 2. **Gamification System**
    - User levels и achievements
    - Points система за активность
-   - Leaderboards для активных reviewers
-   - Cashback программы
+   - Leaderboards для активных пользователей
+   - Reward программы
 
 3. **Expert Network**
    - Верификация экспертов
    - Expert badges и privileges
-   - Paid consultations опция
-   - Expert content moderation
+   - Expert content creation tools
+   - Expert community moderation
 
 **Критерии приемки:**
 - Community hub имеет активных пользователей
@@ -770,7 +498,7 @@ export class AIService {
 **Задачи:**
 
 1. **Educational Platform**
-   - Структурированные курсы по международным платежам
+   - Структурированные курсы по финансовой грамотности
    - Интерактивные guides и tutorials
    - Video content и webinars
    - Personalized learning recommendations
@@ -797,240 +525,85 @@ export class AIService {
 
 ---
 
-# ЭТАП 3: СТЕЙБЛКОИН МОДУЛЬ (12 недель, спринты 29-40)
+# ЭТАП 3: ADVANCED FEATURES (8 недель, спринты 29-36)
 
-## Спринт 29-32: Blockchain инфраструктура (4 недели)
+## Спринт 29-32: Advanced Analytics и Reporting (4 недели)
 
 **Цели:**
-- Разработать и протестировать смарт-контракты
-- Настроить блокчейн инфраструктуру
-- Реализовать multi-signature кошельки
-- Создать резервную систему
+- Создать продвинутую систему аналитики
+- Реализовать custom reporting tools
+- Добавить data visualization
+- Создать export и API функции
 
 **Задачи:**
 
-1. **Smart Contracts Development**
-   - ERC-20 стейблкоины для разных валют (8RUB, 8CNY, 8TRY)
-   - Multi-signature контракты для управления
-   - Governance контракты для голосования
-   - Emergency pause механизмы
+1. **Advanced Analytics Engine**
+   - Multi-dimensional data analysis
+   - Custom metrics и KPIs
+   - Cohort analysis
+   - Behavioral segmentation
 
-2. **Blockchain Infrastructure**
-   - Polygon mainnet deployment
-   - Ethereum bridge для крупных сумм
-   - Web3 provider setup (Infura/Alchemy)
-   - Blockchain monitoring и analytics
+2. **Reporting System**
+   - Customizable dashboard builder
+   - Scheduled reports
+   - Data export в различных форматах
+   - White-label reporting
 
-3. **Security & Reserves**
-   - Multi-signature кошельки для резервов
-   - Real-time reserve auditing
-   - Insurance fund механизм
-   - Аудит смарт-контрактов
+3. **Data Visualization**
+   - Interactive charts и graphs
+   - Real-time data visualization
+   - Custom visualization builder
+   - Mobile-optimized charts
 
 **Критерии приемки:**
-- Смарт-контракты прошли аудит безопасности
-- Резервы полностью обеспечены
-- Multi-sig кошельки настроены корректно
-- Emergency механизмы протестированы
+- Advanced analytics предоставляют valuable insights
+- Reporting system полностью функциональный
+- Data visualization intuitive и responsive
+- Export функции работают корректно
 
-**Рабочий функционал:** Безопасная блокчейн инфраструктура с полностью обеспеченными стейблкоинами.
+**Рабочий функционал:** Продвинутая аналитическая платформа с custom reporting.
 
-```solidity
-// 8RUB.sol - Стейблкоин привязанный к рублю
-pragma solidity ^0.8.19;
-
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-
-contract StableCoin8RUB is ERC20, AccessControl, Pausable {
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
-    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
-
-    // Резервный фонд для обеспечения стейблкоина
-    address public reserveFund;
-    
-    // Oracle для курса RUB/USD
-    address public priceOracle;
-    
-    // Минимальный коэффициент обеспечения (120%)
-    uint256 public constant MIN_COLLATERAL_RATIO = 120;
-
-    event Mint(address indexed to, uint256 amount, uint256 collateralAmount);
-    event Burn(address indexed from, uint256 amount, uint256 collateralReturned);
-    event ReserveFundUpdated(address indexed newReserveFund);
-
-    constructor(
-        address _reserveFund,
-        address _priceOracle
-    ) ERC20("8sh Ruble Stablecoin", "8RUB") {
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(MINTER_ROLE, msg.sender);
-        _grantRole(BURNER_ROLE, msg.sender);
-        _grantRole(PAUSER_ROLE, msg.sender);
-        
-        reserveFund = _reserveFund;
-        priceOracle = _priceOracle;
-    }
-
-    function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) whenNotPaused {
-        require(to != address(0), "Cannot mint to zero address");
-        require(amount > 0, "Amount must be greater than 0");
-        
-        // Проверяем достаточность резервов
-        require(checkCollateralRatio(amount), "Insufficient collateral");
-        
-        _mint(to, amount);
-        emit Mint(to, amount, getRequiredCollateral(amount));
-    }
-
-    function burn(uint256 amount) public whenNotPaused {
-        require(amount > 0, "Amount must be greater than 0");
-        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
-        
-        _burn(msg.sender, amount);
-        
-        // Возвращаем соответствующее количество обеспечения
-        uint256 collateralToReturn = calculateCollateralReturn(amount);
-        emit Burn(msg.sender, amount, collateralToReturn);
-    }
-
-    function checkCollateralRatio(uint256 additionalMint) public view returns (bool) {
-        uint256 totalSupplyAfterMint = totalSupply() + additionalMint;
-        uint256 reserveValue = getReserveValue();
-        
-        return (reserveValue * 100) >= (totalSupplyAfterMint * MIN_COLLATERAL_RATIO);
-    }
-
-    function getReserveValue() public view returns (uint256) {
-        // Получаем стоимость резервов через Oracle
-        return IReserveFund(reserveFund).getTotalValue();
-    }
-
-    function pause() public onlyRole(PAUSER_ROLE) {
-        _pause();
-    }
-
-    function unpause() public onlyRole(PAUSER_ROLE) {
-        _unpause();
-    }
-}
-```
-
-## Спринт 33-36: DeFi интеграции и yield farming (4 недели)
+## Спринт 33-36: Financial Planning Tools (4 недели)
 
 **Цели:**
-- Интегрировать с основными DeFi протоколами
-- Создать yield farming программы
-- Реализовать liquidity mining
-- Добавить автоматический rebalancing
+- Создать инструменты финансового планирования
+- Реализовать goal tracking систему
+- Добавить budget management
+- Создать investment simulation tools
 
 **Задачи:**
 
-1. **DeFi Protocol Integration**
-   - Uniswap V3 liquidity pools
-   - Aave lending протокол
-   - Compound integration
-   - Curve Finance для стейблкоин swaps
+1. **Financial Planning Engine**
+   - Goal setting и tracking
+   - Budget planning и monitoring
+   - Savings optimization algorithms
+   - Risk tolerance assessment
 
-2. **Yield Generation**
-   - Liquidity mining programs
-   - Автоматические стратегии yield farming
-   - Risk-adjusted портфели
-   - Fee optimization алгоритмы
+2. **Simulation Tools**
+   - Investment scenario modeling
+   - Currency risk simulation
+   - Portfolio optimization tools
+   - Monte Carlo simulations
 
-3. **Smart Investment Contracts**
-   - Vault контракты для автоинвестирования
-   - Strategy контракты для разных риск-профилей
-   - Rebalancing алгоритмы
-   - Emergency withdrawal механизмы
-
-**Критерии приемки:**
-- DeFi интеграции генерируют стабильную доходность
-- Автоматические стратегии работают без ошибок
-- Risk management предотвращает большие потери
-- Пользователи получают обещанную доходность
-
-**Рабочий функционал:** DeFi экосистема с автоматическими доходными стратегиями.
-
-## Спринт 37-40: Web3 интерфейс и кошелек интеграция (4 недели)
-
-**Цели:**
-- Создать Web3 интерфейс для стейблкоинов
-- Интегрировать популярные кошельки
-- Реализовать DeFi dashboard
-- Добавить NFT features (опционально)
-
-**Задачи:**
-
-1. **Web3 Frontend**
-   - Wagmi + Viem для Ethereum интеграции
-   - Wallet connection (MetaMask, WalletConnect, Coinbase)
-   - Transaction signing и confirmation
-   - Gas optimization features
-
-2. **DeFi Dashboard**
-   - Portfolio tracking
-   - Yield analytics
-   - Transaction history
-   - Performance metrics
-
-3. **Advanced Features**
-   - Cross-chain bridges
-   - Automatic portfolio rebalancing
-   - Tax reporting для DeFi операций
-   - NFT loyalty программы (если применимо)
+3. **Advisory Features**
+   - Automated financial advice
+   - Personalized recommendations
+   - Market timing suggestions
+   - Risk management alerts
 
 **Критерии приемки:**
-- Web3 интерфейс работает со всеми популярными кошельками
-- DeFi операции выполняются корректно
-- Portfolio tracking точный и своевременный
-- Gas optimization экономит пользователям 15%+
+- Financial planning tools обеспечивают accurate calculations
+- Simulation results realistic и helpful
+- Advisory features provide valuable guidance
+- User engagement с planning tools высокий
 
-**Рабочий функционал:** Полноценная Web3 платформа с DeFi функциями.
+**Рабочий функционал:** Comprehensive financial planning и advisory platform.
 
 ---
 
-# ЭТАП 4: ПОЛНАЯ ВЕРСИЯ (16 недель, спринты 41-56)
+# ЭТАП 4: ENTERPRISE FEATURES (4 недели, спринты 37-40)
 
-## Спринт 41-44: Advanced ML и автоматизация (4 недели)
-
-**Цели:**
-- Создать продвинутые ML модели
-- Реализовать автоматический арбитраж
-- Добавить advanced fraud detection
-- Создать intelligent routing
-
-**Задачи:**
-
-1. **Advanced ML Models**
-   - Deep learning для price prediction
-   - NLP для sentiment analysis новостей
-   - Computer vision для document verification
-   - Reinforcement learning для trading strategies
-
-2. **Automated Trading**
-   - Арбитражные алгоритмы между провайдерами
-   - Intelligent order routing
-   - Market making для стейблкоинов
-   - Risk management алгоритмы
-
-3. **Enhanced Security**
-   - Behavioral biometrics
-   - Advanced fraud detection ML
-   - Real-time risk scoring
-   - Automated compliance monitoring
-
-**Критерии приемки:**
-- ML модели показывают >85% точность
-- Автоматический арбитраж прибыльный
-- Fraud detection имеет <1% false positives
-- Risk management предотвращает потери
-
-**Рабочий функционал:** AI-powered платформа с автоматической торговлей и продвинутой безопасностью.
-
-## Спринт 45-48: Business API и enterprise features (4 недели)
+## Спринт 37-40: Enterprise API и Business Tools (4 недели)
 
 **Цели:**
 - Создать comprehensive API для бизнес-клиентов
@@ -1058,6 +631,12 @@ contract StableCoin8RUB is ERC20, AccessControl, Pausable {
    - API-first architecture
    - Partner revenue sharing
 
+4. **Business Intelligence**
+   - Enterprise-grade analytics
+   - Compliance reporting
+   - Audit trails
+   - Data governance tools
+
 **Критерии приемки:**
 - API documentation comprehensive и usable
 - Enterprise клиенты успешно интегрируются
@@ -1065,78 +644,6 @@ contract StableCoin8RUB is ERC20, AccessControl, Pausable {
 - Partner program генерирует revenue
 
 **Рабочий функционал:** Enterprise-ready платформа с полноценным API и партнерской экосистемой.
-
-## Спринт 49-52: Мобильное приложение (4 недели)
-
-**Цели:**
-- Разработать нативные iOS и Android приложения
-- Реализовать все основные функции
-- Добавить mobile-specific features
-- Обеспечить синхронизацию с web платформой
-
-**Задачи:**
-
-1. **Native App Development**
-   - React Native приложение
-   - iOS App Store submission
-   - Google Play Store submission
-   - Push notifications
-
-2. **Mobile-Specific Features**
-   - Biometric authentication
-   - QR code scanning
-   - Mobile-optimized UI/UX
-   - Offline mode functionality
-
-3. **Cross-Platform Sync**
-   - Real-time synchronization
-   - Conflict resolution
-   - Consistent user experience
-   - Data migration tools
-
-**Критерии приемки:**
-- Приложения доступны в обоих stores
-- All core features работают на mobile
-- Performance metrics соответствуют стандартам
-- User satisfaction >4.5 stars
-
-**Рабочий функционал:** Полнофункциональные мобильные приложения.
-
-## Спринт 53-56: Advanced features и масштабирование (4 недели)
-
-**Цели:**
-- Добавить cutting-edge features
-- Подготовить систему к массовому масштабированию
-- Реализовать международную экспансию
-- Создать advanced compliance tools
-
-**Задачи:**
-
-1. **Innovation Features**
-   - Voice commands интеграция
-   - AR/VR payment experiences (экспериментальные)
-   - IoT device integration
-   - Blockchain identity solutions
-
-2. **Scalability Preparation**
-   - Microservices optimization
-   - Database sharding
-   - CDN optimization
-   - Load balancer configuration
-
-3. **Global Expansion**
-   - Multi-language support (10+ языков)
-   - Local compliance для разных юрисдикций
-   - Regional payment methods
-   - Local partner integrations
-
-**Критерии приемки:**
-- Система выдерживает 10x текущую нагрузку
-- Международные features полностью локализованы
-- Compliance соответствует всем major юрисдикциям
-- Innovation features протестированы и стабильны
-
-**Рабочий функционал:** Глобально масштабируемая платформа с инновационными features.
 
 ---
 
@@ -1148,14 +655,13 @@ contract StableCoin8RUB is ERC20, AccessControl, Pausable {
 ```
 ├── api-gateway/          # Kong API Gateway
 ├── user-service/         # Аутентификация, профили, KYC
-├── payment-service/      # Агрегация провайдеров
-├── transaction-service/  # Обработка транзакций
-├── blockchain-service/   # Web3 и стейблкоины
+├── data-service/         # Финансовые данные и курсы
+├── analytics-service/    # Аналитика и reporting
 ├── ai-service/          # ML и рекомендации
 ├── community-service/    # Отзывы, форум
 ├── notification-service/ # Уведомления
 ├── admin-service/       # Admin панель
-└── analytics-service/   # Бизнес аналитика
+└── planning-service/    # Финансовое планирование
 ```
 
 ### Database Design
@@ -1182,40 +688,26 @@ CREATE TABLE main.users (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- Провайдеры платежей
-CREATE TABLE main.payment_providers (
+-- Валютные курсы
+CREATE TABLE main.exchange_rates (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(100) NOT NULL,
-    type provider_type_enum NOT NULL,
-    api_endpoint VARCHAR(255),
-    supported_currencies JSONB,
-    commission_structure JSONB,
-    limits JSONB,
-    rating DECIMAL(3,2) DEFAULT 0,
-    total_reviews INTEGER DEFAULT 0,
-    success_rate DECIMAL(5,4) DEFAULT 0,
-    average_processing_time INTEGER,
-    is_active BOOLEAN DEFAULT true,
+    base_currency VARCHAR(3) NOT NULL,
+    target_currency VARCHAR(3) NOT NULL,
+    rate DECIMAL(18,8) NOT NULL,
+    source VARCHAR(50) NOT NULL,
+    timestamp TIMESTAMP DEFAULT NOW(),
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Транзакции
-CREATE TABLE main.transactions (
+-- Пользовательские портфели
+CREATE TABLE main.portfolios (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID REFERENCES main.users(id),
-    provider_id UUID REFERENCES main.payment_providers(id),
-    external_reference VARCHAR(100) UNIQUE,
-    external_id VARCHAR(100),
-    source_amount DECIMAL(18,8) NOT NULL,
-    source_currency VARCHAR(3) NOT NULL,
-    target_amount DECIMAL(18,8),
-    target_currency VARCHAR(3) NOT NULL,
-    exchange_rate DECIMAL(18,8),
-    total_fees DECIMAL(18,8),
-    status transaction_status_enum DEFAULT 'created',
-    quote_expiry TIMESTAMP,
-    estimated_completion TIMESTAMP,
-    ai_recommended BOOLEAN DEFAULT false,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    currency_allocations JSONB,
+    target_allocations JSONB,
+    is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -1238,7 +730,7 @@ CREATE TABLE main.transactions (
 3. **Compliance**
    - [ ] KYC/AML procedures
    - [ ] GDPR compliance
-   - [ ] PCI DSS для payment data
+   - [ ] Financial data protection standards
    - [ ] SOC 2 Type II
 
 4. **Monitoring & Incident Response**
@@ -1264,91 +756,44 @@ CREATE TABLE main.transactions (
 ### 3. Testing Strategy
 ```typescript
 // Пример тестовой структуры
-describe('PaymentService', () => {
-  describe('createTransaction', () => {
-    it('should create transaction with valid data', async () => {
+describe('DataService', () => {
+  describe('getExchangeRates', () => {
+    it('should return current rates for valid currencies', async () => {
       // Unit test
     });
     
-    it('should reject transaction exceeding user limits', async () => {
-      // Business logic test
+    it('should handle rate source failures gracefully', async () => {
+      // Error handling test
     });
   });
 });
 
 // Integration tests
-describe('Payment Flow Integration', () => {
-  it('should complete full payment cycle', async () => {
+describe('Analytics Flow Integration', () => {
+  it('should process user data and generate insights', async () => {
     // End-to-end test
-  });
-});
-
-// Load tests
-describe('High Load Scenarios', () => {
-  it('should handle 1000 concurrent transactions', async () => {
-    // Performance test
   });
 });
 ```
 
-### 4. Deployment Strategy
-- **Blue-Green Deployment:** Zero downtime releases
-- **Feature Flags:** Progressive rollout новых features
-- **Monitoring:** Comprehensive observability stack
-- **Rollback Plan:** Quick rollback для critical issues
-
-### 5. Risk Management
-
-**Technical Risks:**
-- **Риск:** Недоступность критических провайдеров
-- **Митигация:** Circuit breaker pattern, fallback провайдеры
-
-**Business Risks:**
-- **Риск:** Изменения в регулировании
-- **Митигация:** Legal compliance team, регулярные audits
-
-**Security Risks:**
-- **Риск:** Компрометация пользовательских данных
-- **Митигация:** Zero-trust architecture, encrypted storage
-
-### 6. Performance Targets
+### 4. Performance Targets
 - **API Response Time:** <500ms для 95% запросов
 - **Page Load Time:** <2 секунд first contentful paint
 - **Database Query Time:** <100ms для простых запросов
 - **System Uptime:** 99.9% availability
 
-### 7. Мониторинг и Alerting
-```yaml
-# Пример alerting rules
-- alert: HighErrorRate
-  expr: sum(rate(http_requests_total{status=~"5.."}[5m])) > 0.1
-  for: 5m
-  labels:
-    severity: critical
-  annotations:
-    summary: "High error rate detected"
-
-- alert: PaymentProviderDown
-  expr: up{job="payment-providers"} == 0
-  for: 1m
-  labels:
-    severity: warning
-  annotations:
-    summary: "Payment provider {{ $labels.instance }} is down"
-```
-
 ## Заключение
 
-Данный roadmap представляет comprehensive план разработки платформы 8sh.ru на 14 месяцев. Каждый спринт имеет четкие цели, deliverables и критерии успеха.
+Данный roadmap представляет план разработки веб-платформы 8sh.ru на 10 месяцев. Каждый спринт имеет четкие цели, deliverables и критерии успеха.
 
 **Ключевые принципы успешной реализации:**
 
-1. **Начинайте с MVP:** Фокус на core функциональности
-2. **Iterative Development:** Регулярные релизы с обратной связью
-3. **Security First:** Безопасность с самого начала
-4. **Scalable Architecture:** Готовность к росту
-5. **User-Centric Design:** Фокус на пользовательском опыте
-6. **Compliance Priority:** Соответствие регулятивным требованиям
+1. **Web2 Focus:** Концентрация на веб-технологиях и традиционных финансовых инструментах
+2. **Data-Driven:** Аналитика и insights как основа value proposition
+3. **User-Centric Design:** Фокус на пользовательском опыте и образовании
+4. **AI Enhancement:** Использование AI для улучшения принятия решений
+5. **Community Building:** Создание активного сообщества пользователей
+6. **Compliance Priority:** Соответствие финансовым регулятивным требованиям
 
 **Next Steps:**
 1. Валидация roadmap с технической командой
