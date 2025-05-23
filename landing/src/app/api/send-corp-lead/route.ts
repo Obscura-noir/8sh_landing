@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'Telegram error' }, { status: 500 });
     }
     return NextResponse.json({ ok: true });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ ok: false, error: 'Server error' }, { status: 500 });
   }
 } 
