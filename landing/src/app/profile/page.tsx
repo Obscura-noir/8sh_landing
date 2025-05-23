@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { supabase } from "../supabaseClient";
 
 type Order = {
   id: string;
@@ -52,6 +53,8 @@ export default function ProfilePage() {
   ]);
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [editingOrder, setEditingOrder] = useState<Order|null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [userIdError, setUserIdError] = useState('');
 
   // Загрузка заявок из Supabase
   useEffect(() => {
@@ -63,6 +66,13 @@ export default function ProfilePage() {
         });
     }
   }, [tab]);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data, error }) => {
+      if (data?.user?.id) setUserId(data.user.id);
+      else setUserIdError('Ошибка авторизации. Войдите заново.');
+    });
+  }, []);
 
   return (
     <div className="min-h-screen flex bg-[#f9f5f3]">
@@ -135,7 +145,7 @@ export default function ProfilePage() {
               setOrders(orders => orders.map(o => o.id === updated.id ? updated : o));
               setEditingOrder(null);
             }} />
-            <OrderModal open={showOrderModal} onClose={() => setShowOrderModal(false)} onCreated={order => { setOrders([order, ...orders]); setShowOrderModal(false); }} />
+            <OrderModal open={showOrderModal} onClose={() => setShowOrderModal(false)} onCreated={order => { setOrders([order, ...orders]); setShowOrderModal(false); }} userId={userId} userIdError={userIdError} />
           </div>
         )}
       </main>
@@ -143,7 +153,7 @@ export default function ProfilePage() {
   );
 }
 
-function OrderModal({ open, onClose, onCreated }: { open: boolean; onClose: () => void; onCreated: (order: Order) => void }) {
+function OrderModal({ open, onClose, onCreated, userId, userIdError }: { open: boolean; onClose: () => void; onCreated: (order: Order) => void; userId: string|null; userIdError: string }) {
   const [form, setForm] = useState({
     sender_name: '',
     sender_tin: '',
@@ -179,18 +189,23 @@ function OrderModal({ open, onClose, onCreated }: { open: boolean; onClose: () =
     e.preventDefault();
     setLoading(true);
     setError('');
+    if (!userId) {
+      setError(userIdError || 'Ошибка: не удалось получить user_id');
+      setLoading(false);
+      return;
+    }
     try {
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, user_id: 'demo-user-id' }),
+        body: JSON.stringify({ ...form, user_id: userId }),
       });
       const data = await res.json();
       if (data.ok) {
         onCreated({
           ...form,
           id: data.id,
-          user_id: 'demo-user-id',
+          user_id: userId,
           status: 'draft',
           date: new Date().toISOString().slice(0, 10),
           amount: Number(form.payment_amount),
@@ -245,7 +260,7 @@ function OrderModal({ open, onClose, onCreated }: { open: boolean; onClose: () =
           <input name="bank_restrictions" value={form.bank_restrictions} onChange={handleChange} className="border rounded px-3 py-2 col-span-2" placeholder="Ограничения по банкам" />
 
           {error && <div className="col-span-2 text-red-600 text-sm">{error}</div>}
-          <button type="submit" className="col-span-2 bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60" disabled={loading}>{loading ? "Создание..." : "Создать заявку"}</button>
+          <button type="submit" className="col-span-2 bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60" disabled={loading || !userId}>{loading ? "Создание..." : "Создать заявку"}</button>
         </form>
       </div>
     </div>

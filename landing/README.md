@@ -30,3 +30,24 @@ npm run dev
 
 ## Контакты
 - Telegram: @sector8_team
+
+## Настройка Supabase
+
+1. В .env.local добавьте:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+2. Для работы заявок (orders) пользователь должен быть авторизован через Supabase Auth. После входа его user_id будет автоматически подставляться во все действия с заявками.
+
+3. Для локального теста используйте реального пользователя из Supabase Auth.
+
+## Миграции для orders
+
+- `supabase_orders_create.sql` — создать таблицу orders
+- `supabase_orders_alter.sql` — добавить недостающие поля
+
+## CRUD заявок
+- Создание, редактирование, отмена и просмотр заявок работают только для авторизованных пользователей.
