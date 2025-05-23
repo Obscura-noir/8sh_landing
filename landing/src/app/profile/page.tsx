@@ -98,7 +98,12 @@ export default function ProfilePage() {
             <div className="w-full flex flex-col gap-2 mb-4">
               <div className="flex justify-between text-gray-600"><span>Email:</span> <span>{user.email}</span></div>
             </div>
-            <button className="mt-4 px-6 py-2 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Выйти</button>
+            <button className="mt-4 px-6 py-2 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700"
+              onClick={async () => {
+                await supabase.auth.signOut();
+                window.location.href = '/';
+              }}
+            >Выйти</button>
           </div>
         )}
         {tab === 'orders' && (
