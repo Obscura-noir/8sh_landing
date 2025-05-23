@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const personas = {
   freelancer: {
@@ -43,6 +44,8 @@ function detectPersona() {
 export default function LandingPage() {
   const [persona, setPersona] = useState<keyof typeof personas>("general");
   const [showModal, setShowModal] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [authMode, setAuthMode] = useState<'login'|'register'>('login');
   useEffect(() => {
     setPersona(detectPersona() as keyof typeof personas);
   }, []);
@@ -77,7 +80,7 @@ export default function LandingPage() {
           <a href="#faq" className="hover:text-indigo-600">FAQ</a>
           <a href="#contact" className="hover:text-indigo-600">Контакты</a>
         </nav>
-        <a href="#" className="px-4 py-2 rounded-md border font-semibold text-indigo-600 border-indigo-600 hover:bg-indigo-50">Войти</a>
+        <a href="#" className="px-4 py-2 rounded-md border font-semibold text-indigo-600 border-indigo-600 hover:bg-indigo-50" onClick={e => {e.preventDefault(); setShowAuth(true); setAuthMode('login')}}>Войти</a>
       </header>
 
       {/* Hero Section */}
@@ -203,20 +206,10 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Final CTA & Contact */}
-      <section id="contact" className="py-12 px-6 max-w-7xl mx-auto text-center">
-        <h2 className="text-2xl font-bold mb-4">🚀 Готовы попробовать?</h2>
-        <p className="mb-6 text-lg">Оставьте заявку — и получите персональную рекомендацию бесплатно!</p>
-        <form className="flex flex-col md:flex-row gap-4 justify-center items-center max-w-xl mx-auto">
-          <input type="email" required placeholder="Ваш email" className="px-4 py-3 rounded-md border w-full md:w-auto" />
-          <button type="submit" className="px-6 py-3 rounded-lg text-white font-semibold bg-indigo-600 hover:bg-indigo-700 transition">Получить рекомендацию</button>
-        </form>
-        <div className="mt-4 text-gray-500 text-sm">Или напишите нам в <a href="#" className="underline text-indigo-600">Telegram</a></div>
-      </section>
-
       {/* Footer */}
       <footer className="py-8 text-center text-gray-400 text-sm border-t mt-8">© 2024 8sh.ru — Международные платежи с умной оптимизацией</footer>
 
+      <AuthModal open={showAuth} mode={authMode} onClose={() => setShowAuth(false)} onSwitchMode={m => setAuthMode(m)} />
       <CorporateModal open={showModal} onClose={() => setShowModal(false)} onSubmit={sendToTelegram} />
     </div>
   );
@@ -336,6 +329,75 @@ function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: (
             <button type="submit" className="bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60" disabled={loading}>{loading ? "Отправка..." : "Отправить заявку"}</button>
           </form>
         )}
+      </div>
+    </div>
+  );
+}
+
+function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode: 'login'|'register'; onClose: () => void; onSwitchMode: (m: 'login'|'register') => void }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess(false);
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, mode }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setSuccess(true);
+        setEmail(""); setPassword("");
+      } else {
+        setError(data.error || "Ошибка");
+      }
+    } catch {
+      setError("Ошибка сети");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="bg-white rounded-xl shadow-lg flex w-full max-w-2xl relative">
+        <button className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl" onClick={onClose}>&times;</button>
+        <div className="flex-1 hidden md:flex items-center justify-center bg-gray-100 rounded-l-xl">
+          <Image src="/login-demo.png" alt="Demo" width={320} height={320} className="object-contain" />
+        </div>
+        <div className="flex-1 flex flex-col justify-center p-8">
+          <h2 className="text-xl font-bold mb-4 text-center">{mode === 'login' ? 'Войти' : 'Регистрация'}</h2>
+          {success ? (
+            <div className="text-green-600 font-semibold text-center py-8">Успешно!</div>
+          ) : (
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+              <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="border rounded px-3 py-2" placeholder="Email" />
+              <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="border rounded px-3 py-2" placeholder="Пароль" />
+              {error && <div className="text-red-600 text-sm">{error}</div>}
+              <button type="submit" className="bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60" disabled={loading}>{loading ? (mode === 'login' ? 'Вход...' : 'Регистрация...') : (mode === 'login' ? 'Войти' : 'Зарегистрироваться')}</button>
+            </form>
+          )}
+          <div className="mt-4 text-center text-sm">
+            {mode === 'login' ? (
+              <>
+                Нет аккаунта? <button className="underline text-indigo-600" onClick={() => onSwitchMode('register')}>Зарегистрироваться</button>
+              </>
+            ) : (
+              <>
+                Уже есть аккаунт? <button className="underline text-indigo-600" onClick={() => onSwitchMode('login')}>Войти</button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
