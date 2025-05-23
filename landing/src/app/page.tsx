@@ -311,7 +311,7 @@ function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: (
       await onSubmit({ name, company, contact, comment });
       setSuccess(true);
       setName(""); setCompany(""); setContact(""); setComment("");
-    } catch (e) {
+    } catch {
       setError("Ошибка отправки. Попробуйте еще раз.");
     } finally {
       setLoading(false);
