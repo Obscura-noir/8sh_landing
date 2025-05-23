@@ -300,9 +300,6 @@ function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: (
   const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
   const [comment, setComment] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -323,18 +320,13 @@ function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: (
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
         <button className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl" onClick={onClose}>&times;</button>
         <h2 className="text-xl font-bold mb-4">Заявка на корпоративное подключение</h2>
-        {success ? (
-          <div className="text-green-600 font-semibold text-center py-8">Спасибо! Ваша заявка отправлена.</div>
-        ) : (
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <input required value={name} onChange={e => setName(e.target.value)} className="border rounded px-3 py-2" placeholder="Фамилия Имя" />
-            <input required value={company} onChange={e => setCompany(e.target.value)} className="border rounded px-3 py-2" placeholder="Компания" />
-            <input required value={contact} onChange={e => setContact(e.target.value)} className="border rounded px-3 py-2" placeholder="Telegram или email" />
-            <textarea value={comment} onChange={e => setComment(e.target.value)} className="border rounded px-3 py-2" placeholder="Комментарий" rows={3} />
-            {error && <div className="text-red-600 text-sm">{error}</div>}
-            <button type="submit" className="bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60" disabled={loading}>{loading ? "Отправка..." : "Отправить заявку"}</button>
-          </form>
-        )}
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <input required value={name} onChange={e => setName(e.target.value)} className="border rounded px-3 py-2" placeholder="Фамилия Имя" name="name" />
+          <input required value={company} onChange={e => setCompany(e.target.value)} className="border rounded px-3 py-2" placeholder="Компания" name="company" />
+          <input required value={contact} onChange={e => setContact(e.target.value)} className="border rounded px-3 py-2" placeholder="Telegram или email" name="contact" />
+          <textarea value={comment} onChange={e => setComment(e.target.value)} className="border rounded px-3 py-2" placeholder="Комментарий" rows={3} name="comment" />
+          <button type="submit" className="bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition">Отправить заявку</button>
+        </form>
       </div>
     </div>
   );
@@ -367,7 +359,7 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
     setError("");
     setSuccess(false);
     try {
-      const body: any = { email, password, mode };
+      const body: AuthBody = { email, password, mode };
       if (mode === 'register') {
         body.name = name;
         body.company = company;
@@ -437,4 +429,13 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
       </div>
     </div>
   );
+}
+
+// Заменяю any на конкретный тип
+interface AuthBody {
+  email: string;
+  password: string;
+  mode: 'login' | 'register';
+  name?: string;
+  company?: string;
 }
