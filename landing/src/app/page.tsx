@@ -366,7 +366,7 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
       if (data.ok) {
         if (mode === 'login') {
           setSuccess(true);
-          setTimeout(() => { onClose(); }, 1000);
+          setTimeout(() => { onClose(); window.open('/profile', '_blank'); }, 1000);
         } else {
           setSuccess(true);
         }
