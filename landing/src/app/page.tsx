@@ -337,6 +337,8 @@ function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: (
 function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode: 'login'|'register'; onClose: () => void; onSwitchMode: (m: 'login'|'register') => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -348,6 +350,8 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
       setError("");
       setEmail("");
       setPassword("");
+      setName("");
+      setCompany("");
     }
   }, [open, mode]);
 
@@ -357,10 +361,15 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
     setError("");
     setSuccess(false);
     try {
+      const body: any = { email, password, mode };
+      if (mode === 'register') {
+        body.name = name;
+        body.company = company;
+      }
       const res = await fetch("/api/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, mode }),
+        body: JSON.stringify(body),
       });
       const data = await res.json();
       if (data.ok) {
@@ -370,7 +379,7 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
         } else {
           setSuccess(true);
         }
-        setEmail(""); setPassword("");
+        setEmail(""); setPassword(""); setName(""); setCompany("");
       } else {
         setError(data.error || "Ошибка");
       }
@@ -397,6 +406,12 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="border rounded px-3 py-2" placeholder="Email" />
               <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="border rounded px-3 py-2" placeholder="Пароль" />
+              {mode === 'register' && (
+                <>
+                  <input required value={name} onChange={e => setName(e.target.value)} className="border rounded px-3 py-2" placeholder="Имя пользователя" />
+                  <input required value={company} onChange={e => setCompany(e.target.value)} className="border rounded px-3 py-2" placeholder="Компания" />
+                </>
+              )}
               {error && <div className="text-red-600 text-sm">{error}</div>}
               <button type="submit" className="bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60" disabled={loading}>{loading ? (mode === 'login' ? 'Вход...' : 'Регистрация...') : (mode === 'login' ? 'Войти' : 'Зарегистрироваться')}</button>
             </form>

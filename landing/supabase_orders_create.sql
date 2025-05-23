@@ -30,4 +30,12 @@ create table if not exists orders (
   bank_restrictions text,
   created_at timestamp with time zone default now(),
   updated_at timestamp with time zone default now()
+);
+
+create table if not exists user_profiles (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) unique not null,
+  name text not null,
+  company text not null,
+  created_at timestamp with time zone default now()
 ); 
