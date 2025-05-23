@@ -287,7 +287,15 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: () => void; onSubmit: (data: { name: string; company: string; contact: string; comment: string }) => Promise<void> }) {
+// Добавляю тип для данных формы
+type CorporateFormData = {
+  name: string;
+  company: string;
+  contact: string;
+  comment: string;
+};
+
+function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: () => void; onSubmit: (data: CorporateFormData) => Promise<void> }) {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
@@ -298,17 +306,15 @@ function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: (
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-    try {
-      await onSubmit({ name, company, contact, comment });
-      setSuccess(true);
-      setName(""); setCompany(""); setContact(""); setComment("");
-    } catch {
-      setError("Ошибка отправки. Попробуйте еще раз.");
-    } finally {
-      setLoading(false);
-    }
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data: CorporateFormData = {
+      name: formData.get('name') as string,
+      company: formData.get('company') as string,
+      contact: formData.get('contact') as string,
+      comment: formData.get('comment') as string,
+    };
+    await onSubmit(data);
+    onClose();
   }
 
   if (!open) return null;

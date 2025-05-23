@@ -68,7 +68,7 @@ export default function ProfilePage() {
   }, [tab]);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data, error }) => {
+    supabase.auth.getUser().then(({ data }) => {
       if (data?.user?.id) setUserId(data.user.id);
       else setUserIdError('Ошибка авторизации. Войдите заново.');
     });
