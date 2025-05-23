@@ -43,10 +43,25 @@ function detectPersona() {
 
 export default function LandingPage() {
   const [persona, setPersona] = useState<keyof typeof personas>("general");
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     setPersona(detectPersona() as keyof typeof personas);
   }, []);
   const p = personas[persona];
+
+  // Функция для отправки заявки в Telegram (заглушка)
+  async function sendToTelegram(data: { name: string; company: string; contact: string; comment: string }) {
+    // TODO: заменить на реальный endpoint Telegram-бота
+    await fetch("/api/send-corp-lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  }
+
+  function handleCorporateClick() {
+    setShowModal(true);
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen text-gray-900">
@@ -77,7 +92,11 @@ export default function LandingPage() {
             <li>✅ Система подбирает лучший маршрут</li>
             <li>✅ 50+ валют и способов</li>
           </ul>
-          <button className={`mt-6 px-6 py-3 rounded-lg text-white font-semibold text-lg shadow-lg transition ${p.color} hover:opacity-90`}>{p.cta}</button>
+          {p.cta === "Создать корпоративную заявку" ? (
+            <button className={`mt-6 px-6 py-3 rounded-lg text-white font-semibold text-lg shadow-lg transition ${p.color} hover:opacity-90`} onClick={handleCorporateClick}>{p.cta}</button>
+          ) : (
+            <button className={`mt-6 px-6 py-3 rounded-lg text-white font-semibold text-lg shadow-lg transition ${p.color} hover:opacity-90`}>{p.cta}</button>
+          )}
           <div className="mt-4 text-gray-500 text-sm">💬 Уже помогли 5,000+ пользователям · ⭐⭐⭐⭐⭐ 4.8/5</div>
         </div>
         <div className="flex-1 flex flex-col items-center">
@@ -198,6 +217,8 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="py-8 text-center text-gray-400 text-sm border-t mt-8">© 2024 8sh.ru — Международные платежи с умной оптимизацией</footer>
+
+      <CorporateModal open={showModal} onClose={() => setShowModal(false)} onSubmit={sendToTelegram} />
     </div>
   );
 }
@@ -270,6 +291,53 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         <span>{open ? "-" : "+"}</span>
       </div>
       {open && <div className="mt-2 text-gray-700">{a}</div>}
+    </div>
+  );
+}
+
+function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: () => void; onSubmit: (data: { name: string; company: string; contact: string; comment: string }) => Promise<void> }) {
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
+  const [contact, setContact] = useState("");
+  const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      await onSubmit({ name, company, contact, comment });
+      setSuccess(true);
+      setName(""); setCompany(""); setContact(""); setComment("");
+    } catch (e) {
+      setError("Ошибка отправки. Попробуйте еще раз.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
+        <button className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl" onClick={onClose}>&times;</button>
+        <h2 className="text-xl font-bold mb-4">Заявка на корпоративное подключение</h2>
+        {success ? (
+          <div className="text-green-600 font-semibold text-center py-8">Спасибо! Ваша заявка отправлена.</div>
+        ) : (
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <input required value={name} onChange={e => setName(e.target.value)} className="border rounded px-3 py-2" placeholder="Фамилия Имя" />
+            <input required value={company} onChange={e => setCompany(e.target.value)} className="border rounded px-3 py-2" placeholder="Компания" />
+            <input required value={contact} onChange={e => setContact(e.target.value)} className="border rounded px-3 py-2" placeholder="Telegram или email" />
+            <textarea value={comment} onChange={e => setComment(e.target.value)} className="border rounded px-3 py-2" placeholder="Комментарий" rows={3} />
+            {error && <div className="text-red-600 text-sm">{error}</div>}
+            <button type="submit" className="bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60" disabled={loading}>{loading ? "Отправка..." : "Отправить заявку"}</button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
