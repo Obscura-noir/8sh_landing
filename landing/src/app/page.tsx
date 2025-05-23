@@ -341,6 +341,16 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
+  // Сброс формы при каждом открытии
+  useEffect(() => {
+    if (open) {
+      setSuccess(false);
+      setError("");
+      setEmail("");
+      setPassword("");
+    }
+  }, [open, mode]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -354,7 +364,12 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
       });
       const data = await res.json();
       if (data.ok) {
-        setSuccess(true);
+        if (mode === 'login') {
+          setSuccess(true);
+          setTimeout(() => { onClose(); }, 1000);
+        } else {
+          setSuccess(true);
+        }
         setEmail(""); setPassword("");
       } else {
         setError(data.error || "Ошибка");
