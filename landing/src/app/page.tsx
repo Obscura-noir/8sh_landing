@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -22,24 +21,18 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
-import Link from '@mui/material/Link';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import RouteIcon from '@mui/icons-material/Route';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import EuroIcon from '@mui/icons-material/Euro';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import StarIcon from '@mui/icons-material/Star';
 import CloseIcon from '@mui/icons-material/Close';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EmailIcon from '@mui/icons-material/Email';
-import TelegramIcon from '@mui/icons-material/Telegram';
 
 const personas = {
   freelancer: {
@@ -86,7 +79,6 @@ export default function LandingPage() {
   const [showAuth, setShowAuth] = useState(false);
   const [authMode, setAuthMode] = useState<'login'|'register'>('login');
   const [calc, setCalc] = useState({ from: '', to: '', amount: '', currency: '' });
-  const [expanded, setExpanded] = useState<number | false>(false);
   useEffect(() => {
     setPersona(detectPersona() as keyof typeof personas);
   }, []);
@@ -374,86 +366,6 @@ export default function LandingPage() {
     </Box>
   );
 }
-
-function AICalculator() {
-  const [from, setFrom] = useState("Россия");
-  const [to, setTo] = useState("Китай");
-  const [amount, setAmount] = useState(10000);
-  const [currency, setCurrency] = useState("USD");
-  // Stub recommendations
-  const recs = [
-    { label: "Crypto-bridge", fee: "0.8%", time: "15 мин", result: 9920 },
-    { label: "Bank Transfer", fee: "1.2%", time: "2 дня", result: 9880 },
-    { label: "Payment Agent", fee: "1.5%", time: "4 часа", result: 9850 },
-  ];
-  return (
-    <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
-      <h3 className="font-bold text-lg mb-4">🧮 Калькулятор перевода</h3>
-      <div className="flex flex-col gap-2 mb-4">
-        <div className="flex gap-2">
-          <input value={from} onChange={e => setFrom(e.target.value)} className="border rounded px-2 py-1 w-1/2" placeholder="Откуда" />
-          <input value={to} onChange={e => setTo(e.target.value)} className="border rounded px-2 py-1 w-1/2" placeholder="Куда" />
-        </div>
-        <div className="flex gap-2">
-          <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))} className="border rounded px-2 py-1 w-1/2" placeholder="Сумма" />
-          <input value={currency} onChange={e => setCurrency(e.target.value)} className="border rounded px-2 py-1 w-1/2" placeholder="Валюта" />
-        </div>
-      </div>
-      <div className="text-gray-500 text-xs mb-2">🤖 Система анализирует 50+ способов...</div>
-      <div className="bg-gray-50 rounded-lg p-3 mb-2">
-        {recs.map((r, i) => (
-          <div key={i} className="flex justify-between items-center py-1 text-sm">
-            <span className="font-medium">{i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'} {r.label}</span>
-            <span>{r.fee} · {r.time} · <span className="font-bold">${r.result.toLocaleString()}</span></span>
-          </div>
-        ))}
-      </div>
-      <div className="flex gap-2 mt-2">
-        <button className="flex-1 px-3 py-2 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Создать заявку</button>
-        <button className="flex-1 px-3 py-2 rounded border font-semibold hover:bg-gray-100">Сравнить все</button>
-      </div>
-    </div>
-  );
-}
-
-function FeatureCard({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
-      <h3 className="font-bold text-lg">{title}</h3>
-      <p className="text-gray-600">{desc}</p>
-    </div>
-  );
-}
-
-function ReviewCard({ name, text }: { name: string; text: string }) {
-  return (
-    <div className="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
-      <div className="font-bold">{name}</div>
-      <div className="text-gray-600">{text}</div>
-    </div>
-  );
-}
-
-function FAQItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border rounded-lg p-4 bg-gray-50 cursor-pointer" onClick={() => setOpen(o => !o)}>
-      <div className="font-semibold flex items-center justify-between">
-        {q}
-        <span>{open ? "-" : "+"}</span>
-      </div>
-      {open && <div className="mt-2 text-gray-700">{a}</div>}
-    </div>
-  );
-}
-
-// Добавляю тип для данных формы
-type CorporateFormData = {
-  name: string;
-  company: string;
-  contact: string;
-  comment: string;
-};
 
 function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: () => void; onSubmit: (data: CorporateFormData) => Promise<void> }) {
   const [name, setName] = useState("");
