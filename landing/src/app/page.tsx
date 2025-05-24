@@ -107,9 +107,9 @@ export default function LandingPage() {
   }
 
   return (
-    <Box sx={{ bgcolor: '#f5f7fa', minHeight: '100vh' }}>
+    <Box sx={{ bgcolor: '#f5f7fa', minHeight: '100vh', pt: { xs: 8, md: 10 } }}>
       {/* Header */}
-      <AppBar position="static" color="default" elevation={0} sx={{ bgcolor: '#fff', borderBottom: 1, borderColor: 'divider' }}>
+      <AppBar position="fixed" color="default" elevation={0} sx={{ bgcolor: '#fff', borderBottom: 1, borderColor: 'divider', zIndex: 1201 }}>
         <Toolbar sx={{ maxWidth: 1440, mx: 'auto', width: '100%' }}>
           <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700, color: 'primary.main' }} component="a" href="#" aria-label="8sh.ru">8sh<span style={{ color: '#222' }}>.ru</span></Typography>
           <Stack direction="row" spacing={2}>
@@ -117,9 +117,8 @@ export default function LandingPage() {
             <Button color="primary" href="#pricing">Тарифы</Button>
             <Button color="primary" href="#reviews">Отзывы</Button>
             <Button color="primary" href="#faq">FAQ</Button>
-            <Button color="primary" href="#contact">Контакты</Button>
           </Stack>
-          <Button variant="outlined" color="primary" sx={{ ml: 3 }} href="#login">Войти</Button>
+          <Button variant="outlined" color="primary" sx={{ ml: 3 }} onClick={() => setShowAuth(true)}>Войти</Button>
         </Toolbar>
       </AppBar>
 
@@ -193,8 +192,8 @@ export default function LandingPage() {
       </Container>
 
       {/* Problems & Solutions */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="solutions">
-        <Grid container spacing={4}>
+      <Container maxWidth="lg" sx={{ py: 8, color: '#111' }} id="solutions">
+        <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={6}>
             <Card elevation={2} sx={{ borderRadius: 3 }}>
               <CardContent>
@@ -225,7 +224,7 @@ export default function LandingPage() {
       </Container>
 
       {/* Smart Features */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="features">
+      <Container maxWidth="lg" sx={{ py: 8, color: '#111' }} id="features">
         <Typography variant="h4" fontWeight={700} mb={4} align="center">Smart-возможности платформы</Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
@@ -259,7 +258,7 @@ export default function LandingPage() {
       </Container>
 
       {/* Comparison Table */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="pricing">
+      <Container maxWidth="lg" sx={{ py: 8, color: '#111' }} id="pricing">
         <Typography variant="h4" fontWeight={700} mb={4} align="center">📊 Сравнение с конкурентами</Typography>
         <TableContainer component={Paper} elevation={3} sx={{ borderRadius: 3 }}>
           <Table>
@@ -300,7 +299,7 @@ export default function LandingPage() {
       </Container>
 
       {/* Reviews */}
-      <Container maxWidth="lg" sx={{ py: 8 }} id="reviews">
+      <Container maxWidth="lg" sx={{ py: 8, color: '#111' }} id="reviews">
         <Typography variant="h4" fontWeight={700} mb={4} align="center">🏆 Доверие и отзывы</Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
@@ -337,7 +336,7 @@ export default function LandingPage() {
       </Container>
 
       {/* FAQ */}
-      <Container maxWidth="md" sx={{ py: 8 }} id="faq">
+      <Container maxWidth="md" sx={{ py: 8, color: '#111' }} id="faq">
         <Typography variant="h4" fontWeight={700} mb={4} align="center">❓ Часто задаваемые вопросы</Typography>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="faq-content" id="faq-header">
@@ -478,7 +477,7 @@ function CorporateModal({ open, onClose, onSubmit }: { open: boolean; onClose: (
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
+      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative" style={{ color: '#111' }}>
         <button className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl" onClick={onClose}>&times;</button>
         <h2 className="text-xl font-bold mb-4">Заявка на корпоративное подключение</h2>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -558,7 +557,7 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
           <Image src="/login-demo.png" alt="Demo" width={320} height={320} className="object-contain" />
         </div>
         <div className="flex-1 flex flex-col justify-center p-8">
-          <h2 className="text-xl font-bold mb-4 text-center">{mode === 'login' ? 'Войти' : 'Регистрация'}</h2>
+          <h2 className="text-xl font-bold mb-4 text-center" style={{ color: '#111' }}>{mode === 'login' ? 'Войти' : 'Регистрация'}</h2>
           {success ? (
             <div className="text-green-600 font-semibold text-center py-8">Успешно!</div>
           ) : (
@@ -575,7 +574,7 @@ function AuthModal({ open, mode, onClose, onSwitchMode }: { open: boolean; mode:
               <button type="submit" className="bg-indigo-600 text-white rounded px-4 py-2 font-semibold hover:bg-indigo-700 transition disabled:opacity-60" disabled={loading}>{loading ? (mode === 'login' ? 'Вход...' : 'Регистрация...') : (mode === 'login' ? 'Войти' : 'Зарегистрироваться')}</button>
             </form>
           )}
-          <div className="mt-4 text-center text-sm">
+          <div className="mt-4 text-center text-sm" style={{ color: '#111' }}>
             {mode === 'login' ? (
               <>
                 Нет аккаунта? <button className="underline text-indigo-600" onClick={() => onSwitchMode('register')}>Зарегистрироваться</button>
