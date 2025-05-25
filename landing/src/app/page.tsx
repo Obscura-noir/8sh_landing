@@ -113,7 +113,6 @@ export default function LandingPage() {
           <Button variant="outlined" color="primary" sx={{ ml: 3 }} onClick={() => setShowAuth(true)}>Войти</Button>
         </Toolbar>
       </AppBar>
-
       {/* Hero Section */}
       <Box sx={{ bgcolor: 'primary.main', color: '#fff', py: { xs: 8, md: 12 }, textAlign: 'center' }}>
         <Container maxWidth="md">
@@ -122,11 +121,15 @@ export default function LandingPage() {
           <Button size="large" variant="contained" color="secondary" sx={{ fontWeight: 700, px: 6, py: 2, borderRadius: 99 }} onClick={handleCorporateClick}>{p.cta}</Button>
         </Container>
       </Box>
-
       {/* Benefits */}
       <Container maxWidth="lg" sx={{ py: 8 }} id="benefits">
         <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 3
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Box sx={{ mb: 2 }}><CheckCircleIcon color="primary" fontSize="large" /></Box>
@@ -134,7 +137,12 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 3
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Box sx={{ mb: 2 }}><AccessTimeIcon color="primary" fontSize="large" /></Box>
@@ -142,7 +150,12 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 3
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Box sx={{ mb: 2 }}><RouteIcon color="primary" fontSize="large" /></Box>
@@ -150,7 +163,12 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 3
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Box sx={{ mb: 2 }}><CurrencyExchangeIcon color="primary" fontSize="large" /></Box>
@@ -160,33 +178,51 @@ export default function LandingPage() {
           </Grid>
         </Grid>
       </Container>
-
       {/* Calculator */}
       <Container maxWidth="md" sx={{ py: 8 }} id="calculator">
         <Paper elevation={4} sx={{ p: 4, borderRadius: 4 }}>
           <Typography variant="h4" fontWeight={700} mb={3}>Калькулятор перевода</Typography>
           <Grid container spacing={2} mb={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6
+              }}>
               <TextField label="Откуда" fullWidth value={calc.from} onChange={e => setCalc({ ...calc, from: e.target.value })} />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6
+              }}>
               <TextField label="Куда" fullWidth value={calc.to} onChange={e => setCalc({ ...calc, to: e.target.value })} />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6
+              }}>
               <TextField label="Сумма" type="number" fullWidth value={calc.amount} onChange={e => setCalc({ ...calc, amount: e.target.value })} />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6
+              }}>
               <TextField label="Валюта" fullWidth value={calc.currency} onChange={e => setCalc({ ...calc, currency: e.target.value })} />
             </Grid>
           </Grid>
           <Button variant="contained" color="primary" size="large">Рассчитать</Button>
         </Paper>
       </Container>
-
       {/* Problems & Solutions */}
       <Container maxWidth="lg" sx={{ py: 8, color: '#111' }} id="solutions">
         <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} md={6}>
+          <Grid
+            size={{
+              xs: 12,
+              md: 6
+            }}>
             <Card elevation={2} sx={{ borderRadius: 3 }}>
               <CardContent>
                 <Typography variant="h5" fontWeight={700} mb={2}>❌ Знакомо?</Typography>
@@ -199,7 +235,11 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid
+            size={{
+              xs: 12,
+              md: 6
+            }}>
             <Card elevation={2} sx={{ borderRadius: 3 }}>
               <CardContent>
                 <Typography variant="h5" fontWeight={700} mb={2}>✅ 8sh решает эти проблемы:</Typography>
@@ -214,12 +254,16 @@ export default function LandingPage() {
           </Grid>
         </Grid>
       </Container>
-
       {/* Smart Features */}
       <Container maxWidth="lg" sx={{ py: 8, color: '#111' }} id="features">
         <Typography variant="h4" fontWeight={700} mb={4} align="center">Smart-возможности платформы</Typography>
         <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 4
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Box sx={{ mb: 2 }}><MonetizationOnIcon color="primary" fontSize="large" /></Box>
@@ -228,7 +272,12 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 4
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Box sx={{ mb: 2 }}><RouteIcon color="primary" fontSize="large" /></Box>
@@ -237,7 +286,12 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 4
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Box sx={{ mb: 2 }}><AccountCircleIcon color="primary" fontSize="large" /></Box>
@@ -248,7 +302,6 @@ export default function LandingPage() {
           </Grid>
         </Grid>
       </Container>
-
       {/* Comparison Table */}
       <Container maxWidth="lg" sx={{ py: 8, color: '#111' }} id="pricing">
         <Typography variant="h4" fontWeight={700} mb={4} align="center">📊 Сравнение с конкурентами</Typography>
@@ -289,12 +342,16 @@ export default function LandingPage() {
           </Table>
         </TableContainer>
       </Container>
-
       {/* Reviews */}
       <Container maxWidth="lg" sx={{ py: 8, color: '#111' }} id="reviews">
         <Typography variant="h4" fontWeight={700} mb={4} align="center">🏆 Доверие и отзывы</Typography>
         <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 4
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Avatar sx={{ width: 56, height: 56, mx: 'auto', mb: 2 }}><AccountCircleIcon fontSize="large" /></Avatar>
@@ -304,7 +361,12 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 4
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Avatar sx={{ width: 56, height: 56, mx: 'auto', mb: 2 }}><AccountCircleIcon fontSize="large" /></Avatar>
@@ -314,7 +376,12 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 4
+            }}>
             <Card elevation={3} sx={{ borderRadius: 3, textAlign: 'center', py: 3 }}>
               <CardContent>
                 <Avatar sx={{ width: 56, height: 56, mx: 'auto', mb: 2 }}><AccountCircleIcon fontSize="large" /></Avatar>
@@ -326,7 +393,6 @@ export default function LandingPage() {
           </Grid>
         </Grid>
       </Container>
-
       {/* FAQ */}
       <Container maxWidth="md" sx={{ py: 8, color: '#111' }} id="faq">
         <Typography variant="h4" fontWeight={700} mb={4} align="center">❓ Часто задаваемые вопросы</Typography>
@@ -355,12 +421,10 @@ export default function LandingPage() {
           </AccordionDetails>
         </Accordion>
       </Container>
-
       {/* Footer */}
       <Box sx={{ bgcolor: 'grey.900', color: '#fff', py: 4, mt: 8, textAlign: 'center' }} component="footer">
         <Typography variant="body2">© 2024 8sh.ru — Международные платежи с умной оптимизацией</Typography>
       </Box>
-
       <AuthModal open={showAuth} mode={authMode} onClose={() => setShowAuth(false)} onSwitchMode={m => setAuthMode(m)} />
       <CorporateModal open={showModal} onClose={() => setShowModal(false)} onSubmit={sendToTelegram} />
     </Box>
@@ -510,4 +574,12 @@ interface AuthBody {
   mode: 'login' | 'register';
   name?: string;
   company?: string;
+}
+
+// Добавить тип CorporateFormData
+interface CorporateFormData {
+  name: string;
+  company: string;
+  contact: string;
+  comment: string;
 }
