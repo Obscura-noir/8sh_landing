@@ -1,53 +1,126 @@
-# 8sh.ru Landing
+# GlobalPay - International Payment Platform
 
-Высококонверсионный лендинг для платформы 8sh.ru
+A modern, responsive web application inspired by international payment platforms, built with Next.js 14, TypeScript, and Tailwind CSS.
 
-## 🚀 Быстрый старт (локально)
+## Features
 
+- 🌍 International payment solutions
+- 💳 Multiple payment methods support
+- 🚀 Fast and secure transactions
+- 📱 Fully responsive design
+- ⚡ Built with Next.js 14 App Router
+- 🎨 Modern UI with Tailwind CSS
+- 🎭 Smooth animations with Framer Motion
+- 🔒 TypeScript for type safety
+
+## Tech Stack
+
+- **Framework:** Next.js 14
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+- **Carousel:** Swiper
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-cd landing
+git clone https://github.com/yourusername/moneyport-inspired.git
+cd moneyport-inspired
+```
+
+2. Install dependencies:
+```bash
 npm install
+# or
+yarn install
+```
+
+3. Run the development server:
+```bash
 npm run dev
+# or
+yarn dev
 ```
 
-Откройте http://localhost:3000
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🟢 Деплой на Vercel
-
-1. Зарегистрируйтесь на [vercel.com](https://vercel.com/)
-2. Импортируйте репозиторий, выберите папку `landing` как root
-3. Все настройки по умолчанию (Next.js + Tailwind)
-4. Нажмите Deploy
-
-## Стек
-- Next.js 14+ (App Router, TypeScript)
-- Tailwind CSS
-- Адаптивная верстка, персонализация контента
-
-## Структура
-- `src/app/page.tsx` — главная страница лендинга
-- `public/` — статика, favicon
-
-## Контакты
-- Telegram: @sector8_team
-
-## Настройка Supabase
-
-1. В .env.local добавьте:
+## Project Structure
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+moneyport-inspired/
+├── app/
+│   ├── layout.tsx      # Root layout
+│   ├── page.tsx        # Home page
+│   └── globals.css     # Global styles
+├── components/
+│   ├── Header.tsx      # Navigation header
+│   ├── Footer.tsx      # Footer component
+│   ├── HeroSection.tsx # Hero section
+│   └── ...             # Other components
+├── public/             # Static assets
+├── styles/            # Additional styles
+└── package.json       # Dependencies
 ```
 
-2. Для работы заявок (orders) пользователь должен быть авторизован через Supabase Auth. После входа его user_id будет автоматически подставляться во все действия с заявками.
+## Key Components
 
-3. Для локального теста используйте реального пользователя из Supabase Auth.
+- **Header:** Responsive navigation with mobile menu
+- **HeroSection:** Eye-catching landing section with animations
+- **PartnersSection:** Showcases target audience
+- **HowItWorksSection:** Step-by-step process explanation
+- **PaymentMethodsSection:** Available payment options
+- **FeaturesSection:** Key platform features
+- **TestimonialsSection:** Customer reviews carousel
+- **CTASection:** Call-to-action with animated background
+- **CountriesSection:** Supported countries grid
 
-## Миграции для orders
+## Scripts
 
-- `supabase_orders_create.sql` — создать таблицу orders
-- `supabase_orders_alter.sql` — добавить недостающие поля
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-## CRUD заявок
-- Создание, редактирование, отмена и просмотр заявок работают только для авторизованных пользователей.
+## Customization
+
+### Colors
+
+Edit the color palette in `tailwind.config.js`:
+
+```javascript
+colors: {
+  primary: '#3B82F6',
+  secondary: '#06B6D4',
+  success: '#10B981',
+  // Add your colors
+}
+```
+
+### Content
+
+All text content is hardcoded in components for easy modification.
+
+## Deployment
+
+This project can be deployed on:
+
+- [Vercel](https://vercel.com) (recommended)
+- [Netlify](https://netlify.com)
+- Any platform supporting Next.js
+
+## License
+
+This project is created for educational purposes. Please ensure you have the right to use any assets or content from the original website.
+
+## Disclaimer
+
+This is an inspired design, not an exact copy. All content has been changed to create a unique platform called "GlobalPay" for demonstration purposes.
