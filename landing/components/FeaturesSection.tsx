@@ -7,26 +7,26 @@ import { Zap, Shield, CheckCircle, Lock, Plus, Minus } from 'lucide-react'
 const features = [
   {
     icon: Zap,
-    title: 'Speed',
-    description: 'Thanks to our extensive infrastructure, we can send money from accounts in the same country as your counterpartys account. In some cases, payments arrive instantly.',
+    title: 'Скорость',
+    description: 'Благодаря нашей инфраструктуре, мы отправляем деньги с местных счетов в стране получателя. В некоторых случаях платежи приходят мгновенно.',
     defaultOpen: true
   },
   {
     icon: Shield,
-    title: 'Reliability',
-    description: 'Our regular business process: building new payment chains with future reserves. If one solution stops working tomorrow, we already have an alternative ready.',
+    title: 'Надёжность',
+    description: 'Постоянно строим новые платёжные цепочки с резервами на будущее. Если одно решение перестанет работать — у нас уже есть альтернатива.',
     defaultOpen: false
   },
   {
     icon: CheckCircle,
-    title: 'Legality',
-    description: 'We create legal payment instruments for each jurisdiction: payment agents, export-import trading houses, MSB licenses. This is what exists in our infrastructure.',
+    title: 'Законность',
+    description: 'Для каждой юрисдикции мы создаём легальные платёжные инструменты: платёжные агенты, торговые дома, лицензии MSB. Всё это есть в нашей инфраструктуре.',
     defaultOpen: false
   },
   {
     icon: Lock,
-    title: 'Security',
-    description: 'We always prioritize transaction security over low costs. This is not just a declaration, but what we do every day - fulfilling our obligations.',
+    title: 'Безопасность',
+    description: 'Мы всегда ставим безопасность транзакций выше низких комиссий. Это не просто слова, а ежедневная практика — выполняем все обязательства.',
     defaultOpen: false
   }
 ]
@@ -53,7 +53,7 @@ export default function FeaturesSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            GlobalPay Is
+            GlobalPay — это
           </h2>
         </motion.div>
 

@@ -70,10 +70,10 @@ export default function CountriesSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Transfer Money to Any Country with GlobalPay
+            Переводите деньги в любую страну с GlobalPay
           </h2>
           <p className="text-lg text-gray-600">
-            Choose any country from the list and learn more
+            Выберите страну из списка и узнайте больше
           </p>
         </motion.div>
 
@@ -111,7 +111,7 @@ export default function CountriesSection() {
               onClick={() => setShowAll(true)}
               className="btn btn-secondary"
             >
-              Show All Countries
+              Показать все страны
             </button>
           </motion.div>
         )}

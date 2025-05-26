@@ -23,7 +23,7 @@ export default function Footer() {
               <span className="text-xl font-bold">GlobalPay</span>
             </div>
             <p className="text-gray-400 mb-4">
-              International payments without limits for individuals and businesses worldwide.
+              Международные платежи без границ для частных лиц и бизнеса по всему миру.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -43,26 +43,26 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">Быстрые ссылки</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                  About Us
+                  О нас
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="text-gray-400 hover:text-white transition-colors">
-                  Services
+                  Услуги
                 </Link>
               </li>
               <li>
                 <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors">
-                  Pricing
+                  Тарифы
                 </Link>
               </li>
               <li>
                 <Link href="/blog" className="text-gray-400 hover:text-white transition-colors">
-                  Blog
+                  Блог
                 </Link>
               </li>
             </ul>
@@ -70,26 +70,26 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Support</h3>
+            <h3 className="text-lg font-semibold mb-4">Поддержка</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/help" className="text-gray-400 hover:text-white transition-colors">
-                  Help Center
+                  Центр помощи
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="text-gray-400 hover:text-white transition-colors">
-                  FAQ
+                  Вопросы и ответы
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact Us
+                  Контакты
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
-                  Terms & Conditions
+                  Условия использования
                 </Link>
               </li>
             </ul>
@@ -97,7 +97,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
+            <h3 className="text-lg font-semibold mb-4">Контакты</h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail size={18} className="text-gray-400" />
@@ -121,14 +121,14 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 GlobalPay. All rights reserved.
+              © 2024 GlobalPay. Все права защищены.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Privacy Policy
+                Политика конфиденциальности
               </Link>
               <Link href="/cookies" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Cookie Policy
+                Политика использования файлов cookie
               </Link>
             </div>
           </div>

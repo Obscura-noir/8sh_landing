@@ -33,26 +33,26 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="#how-it-works" className="text-gray-700 hover:text-primary transition-colors">
-              How it Works
+              Как это работает
             </Link>
             <Link href="#features" className="text-gray-700 hover:text-primary transition-colors">
-              Features
+              Преимущества
             </Link>
             <Link href="#testimonials" className="text-gray-700 hover:text-primary transition-colors">
-              Testimonials
+              Отзывы
             </Link>
             <Link href="#countries" className="text-gray-700 hover:text-primary transition-colors">
-              Countries
+              Страны
             </Link>
           </div>
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-4">
             <Link href="/login" className="btn btn-secondary">
-              Sign In
+              Войти
             </Link>
             <Link href="/register" className="btn btn-primary">
-              Open Account
+              Открыть счёт
             </Link>
           </div>
 
@@ -83,25 +83,25 @@ export default function Header() {
           
           <nav className="space-y-4">
             <Link href="#how-it-works" className="block py-2 text-lg text-gray-700">
-              How it Works
+              Как это работает
             </Link>
             <Link href="#features" className="block py-2 text-lg text-gray-700">
-              Features
+              Преимущества
             </Link>
             <Link href="#testimonials" className="block py-2 text-lg text-gray-700">
-              Testimonials
+              Отзывы
             </Link>
             <Link href="#countries" className="block py-2 text-lg text-gray-700">
-              Countries
+              Страны
             </Link>
           </nav>
           
           <div className="mt-8 space-y-4">
             <Link href="/login" className="btn btn-secondary w-full">
-              Sign In
+              Войти
             </Link>
             <Link href="/register" className="btn btn-primary w-full">
-              Open Account
+              Открыть счёт
             </Link>
           </div>
         </div>

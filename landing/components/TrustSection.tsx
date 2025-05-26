@@ -5,15 +5,15 @@ import { Award, TrendingUp, Shield } from 'lucide-react'
 
 const trustIndicators = [
   {
-    name: "Lena Fox",
-    title: "One of YouTube's veteran auto bloggers, started posting videos back in 2012",
-    quote: "Paying to Japan through GlobalPay is more profitable than through banks.",
+    name: "Лена Фокс",
+    title: "Одна из старейших автоблогеров на YouTube, публикует видео с 2012 года",
+    quote: "Платить в Японию через GlobalPay выгоднее, чем через банки.",
     image: "LF"
   },
   {
-    name: "Igor Mann",
-    title: "Russia's most famous marketing practitioner, speaker, author, publisher",
-    quote: "How to send and receive international transfers without restrictions?",
+    name: "Игорь Манн",
+    title: "Самый известный маркетолог России, спикер, автор, издатель",
+    quote: "Как отправлять и получать международные переводы без ограничений?",
     image: "IM"
   }
 ]
@@ -30,7 +30,7 @@ export default function TrustSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Trusted by Industry Leaders
+            Нам доверяют лидеры отрасли
           </h2>
         </motion.div>
 
@@ -50,7 +50,7 @@ export default function TrustSection() {
                     {person.quote}
                   </h3>
                   <a href="#" className="text-primary hover:text-blue-700 font-medium">
-                    Read full review →
+                    Читать полный отзыв →
                   </a>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -75,7 +75,7 @@ export default function TrustSection() {
           className="text-center mt-12"
         >
           <a href="#" className="btn btn-primary">
-            Learn More About Guarantees
+            Подробнее о гарантиях
           </a>
         </motion.div>
       </div>

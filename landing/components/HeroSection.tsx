@@ -22,26 +22,26 @@ export default function HeroSection() {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-flex items-center space-x-2 mb-6">
-              <span className="text-primary font-semibold">send</span>
-              <span className="text-gray-600">and receive</span>
+              <span className="text-primary font-semibold">отправляйте</span>
+              <span className="text-gray-600">и получайте</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              International Payments{' '}
-              <span className="gradient-text">Without Limits</span>
+              Международные платежи{' '}
+              <span className="gradient-text">без границ</span>
             </h1>
             
             <p className="text-lg text-gray-600 mb-8">
-              For individuals and businesses through accounts in dozens of payment systems worldwide
+              Для частных лиц и бизнеса через счета в десятках платёжных систем по всему миру
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/register" className="btn btn-primary text-lg px-8 py-4">
-                <span className="hidden sm:inline">Open GlobalPay Account</span>
-                <span className="sm:hidden">Get Started</span>
+                <span className="hidden sm:inline">Открыть счёт GlobalPay</span>
+                <span className="sm:hidden">Начать</span>
               </Link>
               <Link href="/login" className="btn btn-secondary text-lg px-8 py-4">
-                Sign In
+                Войти
               </Link>
             </div>
           </motion.div>
@@ -63,7 +63,7 @@ export default function HeroSection() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                       </svg>
                     </div>
-                    <p className="text-gray-600">Global Payment Solutions</p>
+                    <p className="text-gray-600">Глобальные платёжные решения</p>
                   </div>
                 </div>
               </div>
@@ -83,8 +83,8 @@ export default function HeroSection() {
                 transition={{ duration: 4, repeat: Infinity, delay: 1 }}
                 className="absolute bottom-10 left-10 bg-white p-4 rounded-lg shadow-lg"
               >
-                <p className="text-sm font-semibold text-gray-900">45+ Countries</p>
-                <p className="text-xs text-gray-600">Worldwide Coverage</p>
+                <p className="text-sm font-semibold text-gray-900">45+ стран</p>
+                <p className="text-xs text-gray-600">Покрытие по всему миру</p>
               </motion.div>
             </div>
           </motion.div>

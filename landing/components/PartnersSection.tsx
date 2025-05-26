@@ -17,19 +17,19 @@ import {
 } from 'lucide-react'
 
 const companyTypes = [
-  { icon: ShoppingCart, text: 'Retail and Wholesale Trade' },
-  { icon: Truck, text: 'Logistics Companies' },
-  { icon: Code2, text: 'IT Companies and Marketing Agencies' },
-  { icon: Car, text: 'Car Dealerships' },
-  { icon: Building2, text: 'Real Estate Developers' },
+  { icon: ShoppingCart, text: 'Розничная и оптовая торговля' },
+  { icon: Truck, text: 'Логистические компании' },
+  { icon: Code2, text: 'IT-компании и маркетинговые агентства' },
+  { icon: Car, text: 'Автосалоны' },
+  { icon: Building2, text: 'Девелоперы недвижимости' },
 ]
 
 const individualTypes = [
-  { icon: Globe, text: 'Living Abroad (Permanent or Temporary)' },
-  { icon: Home, text: 'Investing in Foreign Real Estate' },
-  { icon: Car, text: 'Private Car Buyers' },
-  { icon: Briefcase, text: 'Freelancers' },
-  { icon: Users, text: 'Real Estate Agents' },
+  { icon: Globe, text: 'Живущие за рубежом (постоянно или временно)' },
+  { icon: Home, text: 'Инвесторы в зарубежную недвижимость' },
+  { icon: Car, text: 'Покупатели автомобилей' },
+  { icon: Briefcase, text: 'Фрилансеры' },
+  { icon: Users, text: 'Агенты по недвижимости' },
 ]
 
 export default function PartnersSection() {
@@ -44,7 +44,7 @@ export default function PartnersSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Who We Work With
+            С кем мы работаем
           </h2>
         </motion.div>
 
@@ -59,7 +59,7 @@ export default function PartnersSection() {
           >
             <div className="flex items-center space-x-3 mb-6">
               <Building2 className="w-8 h-8 text-primary" />
-              <h3 className="text-2xl font-bold text-gray-900">Companies</h3>
+              <h3 className="text-2xl font-bold text-gray-900">Компании</h3>
             </div>
             <ul className="space-y-4">
               {companyTypes.map((type, index) => (
@@ -88,7 +88,7 @@ export default function PartnersSection() {
           >
             <div className="flex items-center space-x-3 mb-6">
               <Users className="w-8 h-8 text-secondary" />
-              <h3 className="text-2xl font-bold text-gray-900">Individuals</h3>
+              <h3 className="text-2xl font-bold text-gray-900">Частные лица</h3>
             </div>
             <ul className="space-y-4">
               {individualTypes.map((type, index) => (

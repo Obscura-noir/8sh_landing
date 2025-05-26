@@ -8,31 +8,31 @@ const steps = [
   {
     number: 1,
     icon: UserPlus,
-    title: 'Create a Multi-Currency Account in 1 Minute',
-    details: ['Only email and phone number required'],
+    title: 'Откройте мультивалютный счёт за 1 минуту',
+    details: ['Требуется только email и номер телефона'],
     color: 'from-blue-500 to-cyan-500'
   },
   {
     number: 2,
     icon: CreditCard,
-    title: 'Fund Your Account Any Way in One Country and Currency',
+    title: 'Пополните счёт любым способом в одной стране и валюте',
     details: [
-      'Issue invoices to any company domestically or internationally',
-      'Transfer within banks or payment systems in any country',
-      'Deposit cash at offices in 35+ cities worldwide',
-      'Transfer cryptocurrency'
+      'Выставляйте счета компаниям в России и за рубежом',
+      'Переводите между банками или платёжными системами в любой стране',
+      'Вносите наличные в офисах в 35+ городах мира',
+      'Переводите криптовалюту'
     ],
     color: 'from-purple-500 to-pink-500'
   },
   {
     number: 3,
     icon: Send,
-    title: 'Transfer Money to Another Country and Currency',
+    title: 'Переведите деньги в другую страну и валюту',
     details: [
-      'Issue invoices to any company domestically or internationally',
-      'Transfer within banks or payment systems in any country',
-      'Receive cash at office or by courier',
-      'Transfer cryptocurrency'
+      'Выставляйте счета компаниям в России и за рубежом',
+      'Переводите между банками или платёжными системами в любой стране',
+      'Получайте наличные в офисе или курьером',
+      'Переводите криптовалюту'
     ],
     color: 'from-green-500 to-emerald-500'
   }
@@ -52,14 +52,13 @@ export default function HowItWorksSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Easy Payments and Transfers
+            Просто платите и переводите деньги
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            GlobalPay infrastructure includes dozens of corporate and individual accounts 
-            in banks and payment systems worldwide, plus cash offices with withdrawal services.
+            Инфраструктура GlobalPay включает десятки корпоративных и частных счетов в банках и платёжных системах по всему миру, а также офисы для работы с наличными.
           </p>
           <p className="text-lg font-semibold text-primary mt-4">
-            This allows us to solve any payment-related tasks.
+            Это позволяет решать любые задачи, связанные с платежами.
           </p>
         </motion.div>
 

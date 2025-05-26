@@ -6,43 +6,43 @@ import { ChevronLeft, ChevronRight, Star, MessageSquare } from 'lucide-react'
 
 const testimonials = [
   {
-    quote: "They work quickly, everything is extremely convenient... and no stress.",
-    author: "Roman",
+    quote: "Работают быстро, всё очень удобно... и без стресса.",
+    author: "Роман",
     handle: "@rom*****",
     avatar: "R",
     rating: 5
   },
   {
-    quote: "Sending is much more convenient/faster/cheaper.",
-    author: "Gleb",
+    quote: "Отправлять стало гораздо удобнее/быстрее/дешевле.",
+    author: "Глеб",
     handle: "@gl*****",
     avatar: "G",
     rating: 5
   },
   {
-    quote: "I recommend. Everything is at 5+ level.",
-    author: "Serzhio",
+    quote: "Рекомендую. Всё на 5+ уровне.",
+    author: "Сержио",
     handle: "@se*****",
     avatar: "S",
     rating: 5
   },
   {
-    quote: "The speed impressed me - no more than 10 minutes.",
-    author: "Vitaliy",
+    quote: "Скорость впечатлила — не больше 10 минут.",
+    author: "Виталий",
     handle: "@vi*****",
     avatar: "V",
     rating: 5
   },
   {
-    quote: "Clear, without fuss, with reasonable fees.",
-    author: "D. Pfemysl",
+    quote: "Чётко, без суеты, с адекватной комиссией.",
+    author: "Д. Пфемысль",
     handle: "@dpf*****",
     avatar: "D",
     rating: 5
   },
   {
-    quote: "Came out cheaper and without stress.",
-    author: "Gulnara",
+    quote: "Вышло дешевле и без стресса.",
+    author: "Гульнара",
     handle: "@sha*****",
     avatar: "G",
     rating: 5
@@ -72,18 +72,17 @@ export default function TestimonialsSection() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Recommended by Friends and Partners
+              Нас рекомендуют друзья и партнёры
             </h2>
             <p className="text-lg text-gray-600 mb-6">
-              These are not just screenshots. Links to direct messages from clients with reviews 
-              are collected in our channel. You can write to anyone who left a review and chat.
+              Это не просто скриншоты. Ссылки на сообщения клиентов с отзывами собраны в нашем канале. Вы можете написать любому, кто оставил отзыв, и пообщаться.
             </p>
             <a 
               href="#" 
               className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors"
             >
               <MessageSquare size={20} />
-              <span className="font-semibold">GlobalPay | Reviews</span>
+              <span className="font-semibold">GlobalPay | Отзывы</span>
             </a>
           </motion.div>
 

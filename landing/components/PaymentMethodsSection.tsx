@@ -15,26 +15,26 @@ import {
 const paymentMethods = [
   {
     icon: ArrowRightLeft,
-    title: 'Bank or Payment System Transfers',
-    description: 'Transfer within any bank or payment system in any country',
+    title: 'Банковские или платёжные переводы',
+    description: 'Перевод в любой банк или платёжную систему в любой стране',
     color: 'from-blue-500 to-cyan-500'
   },
   {
     icon: FileText,
-    title: 'Invoice Payments',
-    description: 'Issue or pay invoices to companies domestically or internationally',
+    title: 'Оплата по счету',
+    description: 'Выставление или оплата счетов компаниям в России и за рубежом',
     color: 'from-purple-500 to-pink-500'
   },
   {
     icon: Truck,
-    title: 'Courier Delivery',
-    description: 'Cash delivery by courier in 45 cities worldwide',
+    title: 'Доставка наличных',
+    description: 'Доставка наличных курьером в 45 городах мира',
     color: 'from-green-500 to-emerald-500'
   },
   {
     icon: Bitcoin,
-    title: 'Cryptocurrency',
-    description: 'Transfer cryptocurrency anywhere in the world',
+    title: 'Криптовалюта',
+    description: 'Перевод криптовалюты в любую точку мира',
     color: 'from-orange-500 to-red-500'
   }
 ]
@@ -51,7 +51,7 @@ export default function PaymentMethodsSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Choose Your Preferred Transfer Method
+            Выберите удобный способ перевода
           </h2>
         </motion.div>
 

@@ -37,16 +37,16 @@ export default function CTASection() {
           className="text-center text-white"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Open an Account
+            Откройте счёт
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            and make international payments without limits
+            и совершайте международные платежи без ограничений
           </p>
           <Link 
             href="/register" 
             className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105"
           >
-            Open GlobalPay Account
+            Открыть счёт GlobalPay
           </Link>
         </motion.div>
       </div>
