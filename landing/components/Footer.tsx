@@ -20,7 +20,7 @@ export default function Footer() {
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">GP</span>
               </div>
-              <span className="text-xl font-bold">GlobalPay</span>
+              <span className="text-xl font-bold">Paynix</span>
             </div>
             <p className="text-gray-400 mb-4">
               Международные платежи без границ для частных лиц и бизнеса по всему миру.
@@ -101,7 +101,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail size={18} className="text-gray-400" />
-                <span className="text-gray-400">support@globalpay.com</span>
+                <span className="text-gray-400">support@paynix.com</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={18} className="text-gray-400" />
@@ -121,7 +121,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 GlobalPay. Все права защищены.
+              © 2024 Paynix. Все права защищены.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">

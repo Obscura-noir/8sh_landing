@@ -7,7 +7,7 @@ import Footer from '@/components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'GlobalPay - International Payments Without Limits',
+  title: 'Paynix - International Payments Without Limits',
   description: 'Send and receive international payments for individuals and businesses through dozens of payment systems',
 }
 

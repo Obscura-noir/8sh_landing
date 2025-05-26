@@ -82,7 +82,7 @@ export default function TestimonialsSection() {
               className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors"
             >
               <MessageSquare size={20} />
-              <span className="font-semibold">GlobalPay | Отзывы</span>
+              <span className="font-semibold">Paynix | Отзывы</span>
             </a>
           </motion.div>
 

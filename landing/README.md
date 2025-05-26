@@ -1,4 +1,4 @@
-# GlobalPay - International Payment Platform
+# Paynix - International Payment Platform
 
 A modern, responsive web application inspired by international payment platforms, built with Next.js 14, TypeScript, and Tailwind CSS.
 
@@ -123,4 +123,4 @@ This project is created for educational purposes. Please ensure you have the rig
 
 ## Disclaimer
 
-This is an inspired design, not an exact copy. All content has been changed to create a unique platform called "GlobalPay" for demonstration purposes.
+This is an inspired design, not an exact copy. All content has been changed to create a unique platform called "Paynix" for demonstration purposes.

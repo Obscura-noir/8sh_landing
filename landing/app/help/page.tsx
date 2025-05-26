@@ -13,7 +13,7 @@ export default function HelpPage() {
         <li>Как удалить аккаунт?</li>
       </ul>
       <h2 className="text-xl font-semibold mt-8 mb-2">Связаться с поддержкой</h2>
-      <p className="mb-4">Если вы не нашли ответа на свой вопрос, напишите нам на <a href="mailto:support@globalpay.com" className="text-primary underline">support@globalpay.com</a> — мы обязательно поможем!</p>
+      <p className="mb-4">Если вы не нашли ответа на свой вопрос, напишите нам на <a href="mailto:support@paynix.com" className="text-primary underline">support@paynix.com</a> — мы обязательно поможем!</p>
     </div>
   );
 } 

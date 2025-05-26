@@ -53,7 +53,7 @@ export default function FeaturesSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            GlobalPay — это
+            Paynix — это
           </h2>
         </motion.div>
 

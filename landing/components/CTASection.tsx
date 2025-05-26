@@ -46,7 +46,7 @@ export default function CTASection() {
             href="/register" 
             className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105"
           >
-            Открыть счёт GlobalPay
+            Открыть счёт Paynix
           </Link>
         </motion.div>
       </div>
