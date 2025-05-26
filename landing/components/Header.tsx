@@ -3,10 +3,33 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
+import { createClient } from '@supabase/supabase-js'
+import { useRouter } from 'next/navigation'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isAuth, setIsAuth] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setIsAuth(!!user)
+    }
+    checkAuth()
+    // Подписка на изменения сессии
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      checkAuth()
+    })
+    return () => {
+      listener?.subscription.unsubscribe()
+    }
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +38,11 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    router.replace('/login')
+  }
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -31,29 +59,39 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="#how-it-works" className="text-gray-700 hover:text-primary transition-colors">
-              Как это работает
-            </Link>
-            <Link href="#features" className="text-gray-700 hover:text-primary transition-colors">
-              Преимущества
-            </Link>
-            <Link href="#testimonials" className="text-gray-700 hover:text-primary transition-colors">
-              Отзывы
-            </Link>
-            <Link href="#countries" className="text-gray-700 hover:text-primary transition-colors">
-              Страны
-            </Link>
-          </div>
+          {typeof window !== 'undefined' && window.location.pathname !== '/profile' && (
+            <div className="hidden md:flex items-center space-x-8">
+              <Link href="#how-it-works" className="text-gray-700 hover:text-primary transition-colors">
+                Как это работает
+              </Link>
+              <Link href="#features" className="text-gray-700 hover:text-primary transition-colors">
+                Преимущества
+              </Link>
+              <Link href="#testimonials" className="text-gray-700 hover:text-primary transition-colors">
+                Отзывы
+              </Link>
+              <Link href="#countries" className="text-gray-700 hover:text-primary transition-colors">
+                Страны
+              </Link>
+            </div>
+          )}
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/login" className="btn btn-secondary">
-              Войти
-            </Link>
-            <Link href="/register" className="btn btn-primary">
-              Открыть счёт
-            </Link>
+            {!isAuth ? (
+              <>
+                <Link href="/login" className="btn btn-secondary">
+                  Войти
+                </Link>
+                <Link href="/register" className="btn btn-primary">
+                  Открыть счёт
+                </Link>
+              </>
+            ) : (
+              <button onClick={handleLogout} className="btn btn-primary">
+                Выйти
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -81,28 +119,38 @@ export default function Header() {
             </button>
           </div>
           
-          <nav className="space-y-4">
-            <Link href="#how-it-works" className="block py-2 text-lg text-gray-700">
-              Как это работает
-            </Link>
-            <Link href="#features" className="block py-2 text-lg text-gray-700">
-              Преимущества
-            </Link>
-            <Link href="#testimonials" className="block py-2 text-lg text-gray-700">
-              Отзывы
-            </Link>
-            <Link href="#countries" className="block py-2 text-lg text-gray-700">
-              Страны
-            </Link>
-          </nav>
+          {typeof window !== 'undefined' && window.location.pathname !== '/profile' && (
+            <nav className="space-y-4">
+              <Link href="#how-it-works" className="block py-2 text-lg text-gray-700">
+                Как это работает
+              </Link>
+              <Link href="#features" className="block py-2 text-lg text-gray-700">
+                Преимущества
+              </Link>
+              <Link href="#testimonials" className="block py-2 text-lg text-gray-700">
+                Отзывы
+              </Link>
+              <Link href="#countries" className="block py-2 text-lg text-gray-700">
+                Страны
+              </Link>
+            </nav>
+          )}
           
           <div className="mt-8 space-y-4">
-            <Link href="/login" className="btn btn-secondary w-full">
-              Войти
-            </Link>
-            <Link href="/register" className="btn btn-primary w-full">
-              Открыть счёт
-            </Link>
+            {!isAuth ? (
+              <>
+                <Link href="/login" className="btn btn-secondary w-full">
+                  Войти
+                </Link>
+                <Link href="/register" className="btn btn-primary w-full">
+                  Открыть счёт
+                </Link>
+              </>
+            ) : (
+              <button onClick={handleLogout} className="btn btn-primary w-full">
+                Выйти
+              </button>
+            )}
           </div>
         </div>
       </div>
