@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Script from 'next/script'
+import ClientHeader from '@/components/ClientHeader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,7 +46,7 @@ export default function RootLayout({
           </div>
         </noscript>
         {/* /Yandex.Metrika noscript */}
-        <Header />
+        <ClientHeader />
         <main>{children}</main>
         <Footer />
       </body>
