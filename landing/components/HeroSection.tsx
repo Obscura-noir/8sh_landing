@@ -3,8 +3,51 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function HeroSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [status, setStatus] = useState<'idle'|'success'|'error'>('idle')
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setStatus('idle')
+    const form = e.currentTarget as typeof e.currentTarget & {
+      name: { value: string }
+      company: { value: string }
+      phone: { value: string }
+      telegram: { value: string }
+      comment: { value: string }
+    }
+    const formData = {
+      name: form.name.value,
+      company: form.company.value,
+      phone: form.phone.value,
+      telegram: form.telegram.value,
+      comment: form.comment.value
+    }
+    try {
+      const res = await fetch('/api/agent-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      if (res.ok) {
+        setStatus('success')
+        form.reset()
+        setTimeout(() => { setIsModalOpen(false); setStatus('idle') }, 2000)
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <section className="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-gradient-to-br from-blue-50 to-cyan-50">
       {/* Background Pattern + SVG Graphics */}
@@ -56,6 +99,13 @@ export default function HeroSection() {
               <Link href="/login" className="btn btn-secondary text-lg px-8 py-4">
                 Войти
               </Link>
+              <button
+                className="btn btn-success text-lg px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-200"
+                style={{ minWidth: 180 }}
+                onClick={() => setIsModalOpen(true)}
+              >
+                Стать Агентом
+              </button>
             </div>
           </motion.div>
           {/* Image/Illustration + Glow/Neon effect */}
@@ -97,6 +147,40 @@ export default function HeroSection() {
             </div>
           </motion.div>
         </div>
+        {/* Модальное окно */}
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+            <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md relative animate-fade-in">
+              <button className="absolute top-3 right-3 text-gray-400 hover:text-gray-700" onClick={() => setIsModalOpen(false)}>&times;</button>
+              <h2 className="text-2xl font-bold mb-4 text-center">Заявка на регистрацию агента</h2>
+              <form id="agent-form" onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label className="block mb-1 font-medium">Имя Фамилия *</label>
+                  <input name="name" type="text" required className="input input-bordered w-full" />
+                </div>
+                <div className="mb-3">
+                  <label className="block mb-1 font-medium">Компания *</label>
+                  <input name="company" type="text" required className="input input-bordered w-full" />
+                </div>
+                <div className="mb-3">
+                  <label className="block mb-1 font-medium">Телефон *</label>
+                  <input name="phone" type="tel" required className="input input-bordered w-full" />
+                </div>
+                <div className="mb-3">
+                  <label className="block mb-1 font-medium">Telegram *</label>
+                  <input name="telegram" type="text" required className="input input-bordered w-full" />
+                </div>
+                <div className="mb-4">
+                  <label className="block mb-1 font-medium">Комментарий *</label>
+                  <textarea name="comment" required className="input input-bordered w-full min-h-[80px]" />
+                </div>
+                <button type="submit" className="btn btn-success w-full bg-green-600 hover:bg-green-700 text-white font-semibold" disabled={isLoading}>{isLoading ? 'Отправка...' : 'Отправить заявку'}</button>
+              </form>
+              {status === 'success' && <div className="text-green-600 text-center mt-3">Заявка отправлена!</div>}
+              {status === 'error' && <div className="text-red-600 text-center mt-3">Ошибка отправки. Попробуйте позже.</div>}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
