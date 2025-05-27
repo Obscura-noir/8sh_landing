@@ -27,18 +27,17 @@ export default function HeroSection() {
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Международные платежи{' '}
-              <span className="gradient-text">без границ</span>
+            Сеть для решения платёжных задач{' '}
+              <span className="gradient-text">переводы и обмен цифровых активов в 60 странах</span>
             </h1>
             
             <p className="text-lg text-gray-600 mb-8">
-              Для частных лиц и бизнеса через счета в десятках платёжных систем по всему миру
+              Обеспечиваем быстрые и надёжные расчёты по всему миру с гарантией безопасности и точности.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/register" className="btn btn-primary text-lg px-8 py-4">
-                <span className="hidden sm:inline">Открыть счёт Paynix</span>
-                <span className="sm:hidden">Начать</span>
+                Оставить заявку на платёж
               </Link>
               <Link href="/login" className="btn btn-secondary text-lg px-8 py-4">
                 Войти

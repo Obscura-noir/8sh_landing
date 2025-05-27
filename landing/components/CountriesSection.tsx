@@ -5,6 +5,11 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 const countries = [
+  { code: 'TR', name: 'Турция', flag: '🇹🇷' },
+  { code: 'AE', name: 'Дубай', flag: '🇦🇪' },
+  { code: 'CN', name: 'Китай', flag: '🇨🇳' },
+  { code: 'US', name: 'США', flag: '🇺🇸' },
+  { code: 'DE', name: 'Германия', flag: '🇩🇪' },
   { code: 'AT', name: 'Austria', flag: '🇦🇹' },
   { code: 'AZ', name: 'Azerbaijan', flag: '🇦🇿' },
   { code: 'AM', name: 'Armenia', flag: '🇦🇲' },
@@ -12,7 +17,6 @@ const countries = [
   { code: 'BG', name: 'Bulgaria', flag: '🇧🇬' },
   { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
   { code: 'HU', name: 'Hungary', flag: '🇭🇺' },
-  { code: 'DE', name: 'Germany', flag: '🇩🇪' },
   { code: 'GR', name: 'Greece', flag: '🇬🇷' },
   { code: 'GE', name: 'Georgia', flag: '🇬🇪' },
   { code: 'IN', name: 'India', flag: '🇮🇳' },
@@ -32,7 +36,6 @@ const countries = [
   { code: 'MD', name: 'Moldova', flag: '🇲🇩' },
   { code: 'MC', name: 'Monaco', flag: '🇲🇨' },
   { code: 'NL', name: 'Netherlands', flag: '🇳🇱' },
-  { code: 'AE', name: 'UAE', flag: '🇦🇪' },
   { code: 'PL', name: 'Poland', flag: '🇵🇱' },
   { code: 'PT', name: 'Portugal', flag: '🇵🇹' },
   { code: 'RU', name: 'Russia', flag: '🇷🇺' },
@@ -41,9 +44,7 @@ const countries = [
   { code: 'SG', name: 'Singapore', flag: '🇸🇬' },
   { code: 'SK', name: 'Slovakia', flag: '🇸🇰' },
   { code: 'SI', name: 'Slovenia', flag: '🇸🇮' },
-  { code: 'US', name: 'USA', flag: '🇺🇸' },
   { code: 'TH', name: 'Thailand', flag: '🇹🇭' },
-  { code: 'TR', name: 'Turkey', flag: '🇹🇷' },
   { code: 'UZ', name: 'Uzbekistan', flag: '🇺🇿' },
   { code: 'FI', name: 'Finland', flag: '🇫🇮' },
   { code: 'FR', name: 'France', flag: '🇫🇷' },
