@@ -29,16 +29,11 @@ const countries = [
   { code: 'CY', name: 'Cyprus', flag: '🇨🇾' },
   { code: 'KG', name: 'Kyrgyzstan', flag: '🇰🇬' },
   { code: 'KR', name: 'South Korea', flag: '🇰🇷' },
-  { code: 'LV', name: 'Latvia', flag: '🇱🇻' },
-  { code: 'LT', name: 'Lithuania', flag: '🇱🇹' },
   { code: 'MY', name: 'Malaysia', flag: '🇲🇾' },
   { code: 'MV', name: 'Maldives', flag: '🇲🇻' },
   { code: 'MD', name: 'Moldova', flag: '🇲🇩' },
-  { code: 'MC', name: 'Monaco', flag: '🇲🇨' },
   { code: 'NL', name: 'Netherlands', flag: '🇳🇱' },
-  { code: 'PL', name: 'Poland', flag: '🇵🇱' },
   { code: 'PT', name: 'Portugal', flag: '🇵🇹' },
-  { code: 'RU', name: 'Russia', flag: '🇷🇺' },
   { code: 'RO', name: 'Romania', flag: '🇷🇴' },
   { code: 'RS', name: 'Serbia', flag: '🇷🇸' },
   { code: 'SG', name: 'Singapore', flag: '🇸🇬' },
@@ -52,7 +47,6 @@ const countries = [
   { code: 'ME', name: 'Montenegro', flag: '🇲🇪' },
   { code: 'CZ', name: 'Czech Republic', flag: '🇨🇿' },
   { code: 'CH', name: 'Switzerland', flag: '🇨🇭' },
-  { code: 'EE', name: 'Estonia', flag: '🇪🇪' },
   { code: 'JP', name: 'Japan', flag: '🇯🇵' }
 ]
 
