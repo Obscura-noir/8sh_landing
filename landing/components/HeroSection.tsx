@@ -126,7 +126,6 @@ export default function HeroSection() {
                   <rect x="11" y="14" width="2" height="2" rx="1" fill="currentColor" />
                 </svg>
               </div>
-              <p className="text-gray-600 text-center w-full absolute left-0 right-0 top-[calc(100%+10px)]">Глобальные платёжные решения</p>
               {/* Floating Cards */}
               <motion.div
                 animate={{ y: [0, -20, 0] }}
@@ -150,31 +149,31 @@ export default function HeroSection() {
         {/* Модальное окно */}
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-            <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md relative animate-fade-in">
-              <button className="absolute top-3 right-3 text-gray-400 hover:text-gray-700" onClick={() => setIsModalOpen(false)}>&times;</button>
+            <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md relative animate-fade-in border-2 border-green-200">
+              <button className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-3xl" onClick={() => setIsModalOpen(false)}>&times;</button>
               <h2 className="text-2xl font-bold mb-4 text-center">Заявка на регистрацию агента</h2>
               <form id="agent-form" onSubmit={handleSubmit}>
-                <div className="mb-3">
+                <div className="mb-4">
                   <label className="block mb-1 font-medium">Имя Фамилия *</label>
-                  <input name="name" type="text" required className="input input-bordered w-full" />
-                </div>
-                <div className="mb-3">
-                  <label className="block mb-1 font-medium">Компания *</label>
-                  <input name="company" type="text" required className="input input-bordered w-full" />
-                </div>
-                <div className="mb-3">
-                  <label className="block mb-1 font-medium">Телефон *</label>
-                  <input name="phone" type="tel" required className="input input-bordered w-full" />
-                </div>
-                <div className="mb-3">
-                  <label className="block mb-1 font-medium">Telegram *</label>
-                  <input name="telegram" type="text" required className="input input-bordered w-full" />
+                  <input name="name" type="text" required className="input w-full rounded-xl border-2 border-green-300 focus:border-green-500 focus:ring-green-200 transition" />
                 </div>
                 <div className="mb-4">
-                  <label className="block mb-1 font-medium">Комментарий *</label>
-                  <textarea name="comment" required className="input input-bordered w-full min-h-[80px]" />
+                  <label className="block mb-1 font-medium">Компания *</label>
+                  <input name="company" type="text" required className="input w-full rounded-xl border-2 border-green-300 focus:border-green-500 focus:ring-green-200 transition" />
                 </div>
-                <button type="submit" className="btn btn-success w-full bg-green-600 hover:bg-green-700 text-white font-semibold" disabled={isLoading}>{isLoading ? 'Отправка...' : 'Отправить заявку'}</button>
+                <div className="mb-4">
+                  <label className="block mb-1 font-medium">Телефон *</label>
+                  <input name="phone" type="tel" required className="input w-full rounded-xl border-2 border-green-300 focus:border-green-500 focus:ring-green-200 transition" />
+                </div>
+                <div className="mb-4">
+                  <label className="block mb-1 font-medium">Telegram *</label>
+                  <input name="telegram" type="text" required className="input w-full rounded-xl border-2 border-green-300 focus:border-green-500 focus:ring-green-200 transition" />
+                </div>
+                <div className="mb-6">
+                  <label className="block mb-1 font-medium">Комментарий *</label>
+                  <textarea name="comment" required className="input w-full min-h-[80px] rounded-xl border-2 border-green-300 focus:border-green-500 focus:ring-green-200 transition" />
+                </div>
+                <button type="submit" className="btn btn-success w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl" disabled={isLoading}>{isLoading ? 'Отправка...' : 'Отправить заявку'}</button>
               </form>
               {status === 'success' && <div className="text-green-600 text-center mt-3">Заявка отправлена!</div>}
               {status === 'error' && <div className="text-red-600 text-center mt-3">Ошибка отправки. Попробуйте позже.</div>}
