@@ -6,9 +6,9 @@ export default function ContactPage() {
       <h1 className="text-3xl font-bold mb-6">Контакты</h1>
       <p className="mb-4">Свяжитесь с нами по любым вопросам:</p>
       <ul className="mb-4">
-        <li>Email: <a href="mailto:support@paynix.com" className="text-primary underline">support@paynix.com</a></li>
-        <li>Телефон: <a href="tel:+15551234567" className="text-primary underline">+1 (555) 123-4567</a></li>
-        <li>Адрес: 123 Financial District, New York, NY 10004</li>
+        <li>Email: <a href="mailto:2622610@gmail.com" className="text-primary underline">2622610@gmail.com</a></li>
+        <li>Телефон: <a href="tel:++79102013999" className="text-primary underline">+7 (910) 201-39-99</a></li>
+        <li>Адрес: 101000, Москва, Пресненская набережная 12</li>
       </ul>
       <p>Мы ответим вам в ближайшее время!</p>
     </div>

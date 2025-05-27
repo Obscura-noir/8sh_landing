@@ -101,17 +101,17 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail size={18} className="text-gray-400" />
-                <span className="text-gray-400">support@paynix.com</span>
+                <span className="text-gray-400">2622610@gmail.com</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={18} className="text-gray-400" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
+                <span className="text-gray-400">+7 (910) 201-39-99</span>
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="text-gray-400 mt-1" />
                 <span className="text-gray-400">
-                  123 Financial District<br />
-                  New York, NY 10004
+                Пресненская набережная 12<br />
+                Москва, 101000
                 </span>
               </li>
             </ul>
@@ -121,7 +121,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 Paynix. Все права защищены.
+              © 2025 Paynix. Все права защищены.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">

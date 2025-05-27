@@ -74,12 +74,9 @@ moneyport-inspired/
 ## Key Components
 
 - **Header:** Responsive navigation with mobile menu
-- **HeroSection:** Eye-catching landing section with animations 1
-- **PartnersSection:** Showcases target audience 2
-- **HowItWorksSection:** Step-by-step process explanation 3
-- **PaymentMethodsSection:** Available payment options 4
+- **HeroSection:** Eye-catching landing section with animations
+- **HowItWorksSection:** Step-by-step process explanation
 - **FeaturesSection:** Key platform features
-- **TestimonialsSection:** Customer reviews carousel
 - **CTASection:** Call-to-action with animated background
 - **CountriesSection:** Supported countries grid
 
