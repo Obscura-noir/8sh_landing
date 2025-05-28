@@ -75,13 +75,7 @@ export default function HowItWorksSection() {
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Как это работает
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Инфраструктура Paynix включает десятки корпоративных и частных счетов в банках и платёжных системах по всему миру, а также офисы для работы с наличными.
-          </p>
-          <p className="text-lg font-semibold text-primary mt-4">
-            Это позволяет решать любые задачи, связанные с платежами.
-          </p>
+          </h2>  
         </motion.div>
 
         <div className="space-y-6 max-w-4xl mx-auto">
