@@ -8,8 +8,39 @@ import ClientHeader from '@/components/ClientHeader'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Paynix - International Payments Without Limits',
-  description: 'Send and receive international payments for individuals and businesses through dozens of payment systems',
+  title: 'Paynix — Международные платежи для бизнеса, ВЭД и B2B | Альтернативные решения, калькулятор, API',
+  description: 'Paynix — эксперт в международных платежах для бизнеса и ВЭД. Калькулятор стоимости, образовательный хаб, API для интеграций, отзывы клиентов, безопасность и легальность. Сравнение с банками и конкурентами. Переводы в Китай, Турцию, ОАЭ и другие страны. Надежные решения для B2B и ВЭД.',
+  keywords: [
+    'международные платежи',
+    'платежная система для вэд',
+    'международный платежный сервис',
+    'переводы за границу',
+    'платежи в китай',
+    'платежи в турцию',
+    'переводы в дубай',
+    'международные переводы для бизнеса',
+    'валютные переводы юридических лиц',
+    'корреспондентские счета для бизнеса',
+    'альтернативные способы международных платежей',
+    'валютный контроль',
+    'легальные международные переводы',
+    'быстрые международные расчеты',
+    'надежные платежи за рубеж',
+    'международные расчеты без swift',
+    'цифровые валюты для расчетов',
+    'геотаргетинг платежей',
+    'инструкции по международным переводам',
+    'экспорт и импорт платежи',
+    'бизнес переводы за границу',
+    'образовательный хаб',
+    'API для платежей',
+    'отзывы клиентов',
+    'безопасность платежей',
+    'сравнение с банками',
+    'B2B платежи',
+    'ВЭД решения',
+    'калькулятор платежей',
+  ].join(', '),
 }
 
 export default function RootLayout({
@@ -36,6 +67,30 @@ export default function RootLayout({
             });
           `}
         </Script>
+        {/* FAQ Schema.org */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Как быстро проходят платежи?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "От 1 рабочего дня в зависимости от страны."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Как зарегистрироваться?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Перейдите на страницу регистрации и заполните форму."
+              }
+            }
+          ]
+        }) }} />
+        {/* /FAQ Schema.org */}
         {/* /Yandex.Metrika counter */}
       </head>
       <body className={inter.className}>

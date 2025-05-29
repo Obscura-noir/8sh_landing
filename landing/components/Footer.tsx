@@ -65,6 +65,11 @@ export default function Footer() {
                   Блог
                 </Link>
               </li>
+              <li>
+                <a href="https://cbr.ru/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                  Центральный банк РФ
+                </a>
+              </li>
             </ul>
           </div>
 

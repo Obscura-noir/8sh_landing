@@ -73,6 +73,10 @@ export default function Header() {
               <Link href="#countries" className="text-gray-700 hover:text-primary transition-colors">
                 Страны
               </Link>
+              {/* Гео-страницы — добавить при наличии */}
+              {/* <Link href="/send-to/китай" className="text-gray-700 hover:text-primary transition-colors">Платежи в Китай</Link> */}
+              {/* <Link href="/send-to/турция" className="text-gray-700 hover:text-primary transition-colors">Платежи в Турцию</Link> */}
+              {/* <Link href="/send-to/дубай" className="text-gray-700 hover:text-primary transition-colors">Платежи в ОАЭ</Link> */}
             </div>
           )}
 
@@ -84,7 +88,7 @@ export default function Header() {
                   Войти
                 </Link>
                 <Link href="/register" className="btn btn-primary">
-                  Открыть счёт
+                  Открыть счет за 5 минут
                 </Link>
               </>
             ) : (
@@ -133,6 +137,10 @@ export default function Header() {
               <Link href="#countries" className="block py-2 text-lg text-gray-700">
                 Страны
               </Link>
+              {/* Гео-страницы — добавить при наличии */}
+              {/* <Link href="/send-to/китай" className="block py-2 text-lg text-gray-700">Платежи в Китай</Link> */}
+              {/* <Link href="/send-to/турция" className="block py-2 text-lg text-gray-700">Платежи в Турцию</Link> */}
+              {/* <Link href="/send-to/дубай" className="block py-2 text-lg text-gray-700">Платежи в ОАЭ</Link> */}
             </nav>
           )}
           
@@ -143,7 +151,7 @@ export default function Header() {
                   Войти
                 </Link>
                 <Link href="/register" className="btn btn-primary w-full">
-                  Открыть счёт
+                  Открыть счет за 5 минут
                 </Link>
               </>
             ) : (

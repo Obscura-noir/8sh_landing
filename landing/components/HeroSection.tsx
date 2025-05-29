@@ -56,7 +56,7 @@ export default function HeroSection() {
         <div className="absolute top-0 left-0 w-72 h-72 bg-primary rounded-full filter blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary rounded-full filter blur-3xl animate-pulse-slow2"></div>
         {/* SVG Abstract Waves */}
-        <svg className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-30" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-30" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <radialGradient id="glow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="userSpaceOnUse">
               <stop stopColor="#3B82F6" stopOpacity="0.3" />
@@ -86,11 +86,10 @@ export default function HeroSection() {
               <span className="text-gray-600">и получайте</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Сеть для решения платёжных задач{' '}
-              <span className="gradient-text">переводы и обмен цифровых активов в 60 странах</span>
+              Международные платежи для бизнеса в 60 странах
             </h1>
             <p className="text-lg text-gray-600 mb-8">
-              Обеспечиваем быстрые и надёжные расчёты по всему миру с гарантией безопасности и точности.
+              Быстрые международные переводы без SWIFT для ВЭД, импорта и экспорта. Обеспечиваем надёжные расчёты по всему миру с гарантией безопасности и точности.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/register" className="btn btn-primary text-lg px-8 py-4">
@@ -180,6 +179,10 @@ export default function HeroSection() {
             </div>
           </div>
         )}
+        {/* После hero-блока — SEO-абзац */}
+        <div className="mt-8 max-w-2xl mx-auto text-center text-base text-gray-700">
+          Paynix — это современная платформа для международных расчетов, созданная специально для российского бизнеса. Мы помогаем импортерам и экспортерам проводить платежи в 60 стран мира, обходя ограничения традиционных банковских систем. Наша инфраструктура включает десятки корпоративных счетов и прямые договоры с финансовыми институтами по всему миру.
+        </div>
       </div>
     </section>
   )
