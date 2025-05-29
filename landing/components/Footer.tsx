@@ -18,7 +18,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">PN</span>
+                <span className="text-white font-bold text-xl" role="img" aria-label="Paynix — международные платежи для бизнеса">PN</span>
               </div>
               <span className="text-xl font-bold">Paynix</span>
             </div>

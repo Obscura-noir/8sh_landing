@@ -37,7 +37,7 @@ export default function CTASection() {
           className="text-center text-white"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Оставить заявку
+            Оставить заявку на международный платёж для бизнеса
           </h2>
           <p className="text-xl mb-8 opacity-90">
             и совершайте международные платежи без ограничений

@@ -53,7 +53,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">PN</span>
+              <span className="text-white font-bold text-xl" role="img" aria-label="Paynix — международные платежи для бизнеса">PN</span>
             </div>
             <span className="text-xl font-bold text-gray-900">Paynix</span>
           </Link>
@@ -114,7 +114,7 @@ export default function Header() {
           <div className="flex items-center justify-between mb-8">
             <Link href="/" className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">PN</span>
+                <span className="text-white font-bold text-xl" role="img" aria-label="Paynix — международные платежи для бизнеса">PN</span>
               </div>
               <span className="text-xl font-bold text-gray-900">Paynix</span>
             </Link>

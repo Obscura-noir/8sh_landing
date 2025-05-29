@@ -8,8 +8,8 @@ import ClientHeader from '@/components/ClientHeader'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Paynix — Международные платежи для бизнеса, ВЭД и B2B | Альтернативные решения, калькулятор, API',
-  description: 'Paynix — эксперт в международных платежах для бизнеса и ВЭД. Калькулятор стоимости, образовательный хаб, API для интеграций, отзывы клиентов, безопасность и легальность. Сравнение с банками и конкурентами. Переводы в Китай, Турцию, ОАЭ и другие страны. Надежные решения для B2B и ВЭД.',
+  title: 'Международные платежи без SWIFT • Paynix • 60 стран за 1 день',
+  description: 'Платежи в Китай, Турцию, ОАЭ когда банки отказывают. ✓ От 1.5% ✓ Легально ✓ 12,000+ компаний. Оставьте заявку и начните работать →',
   keywords: [
     'международные платежи',
     'платежная система для вэд',
@@ -92,6 +92,8 @@ export default function RootLayout({
         }) }} />
         {/* /FAQ Schema.org */}
         {/* /Yandex.Metrika counter */}
+        <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/css/critical.css" as="style" />
       </head>
       <body className={inter.className}>
         {/* Yandex.Metrika noscript */}
