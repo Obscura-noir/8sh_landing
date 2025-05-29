@@ -4,6 +4,7 @@ import './globals.css'
 import Footer from '@/components/Footer'
 import Script from 'next/script'
 import ClientHeader from '@/components/ClientHeader'
+import TrackQueryParams from '@/components/TrackQueryParams'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -193,6 +194,7 @@ export default function RootLayout({
         <meta name="twitter:description" content="Платежи в Китай, Турцию, ОАЭ. От 1.5%, легально, 12000+ компаний" />
       </head>
       <body className={inter.className}>
+        <TrackQueryParams />
         {/* Yandex.Metrika noscript */}
         <noscript>
           <div>

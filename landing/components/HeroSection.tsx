@@ -21,12 +21,16 @@ export default function HeroSection() {
       telegram: { value: string }
       comment: { value: string }
     }
+    const source = (typeof window !== 'undefined' && localStorage.getItem('paynix_source')) || '';
+    const term = (typeof window !== 'undefined' && localStorage.getItem('paynix_term')) || '';
     const formData = {
       name: form.name.value,
       company: form.company.value,
       phone: form.phone.value,
       telegram: form.telegram.value,
-      comment: form.comment.value
+      comment: form.comment.value,
+      source,
+      term,
     }
     try {
       const res = await fetch('/api/agent-request', {
