@@ -122,7 +122,7 @@ export default function HeroSection() {
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-primary/40 to-secondary/30 rounded-full blur-3xl animate-pulse-slow2 z-0"></div>
               {/* Card Icon with neon border */}
               <div className="relative z-10 w-32 h-32 bg-white rounded-full mx-auto mb-4 shadow-lg flex items-center justify-center border-4 border-primary/30 animate-glow">
-                <svg className="w-16 h-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-16 h-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" role="img" aria-label="Международные платежи для бизнеса">
                   <rect x="4" y="7" width="16" height="10" rx="3" stroke="currentColor" strokeWidth="2" fill="none" />
                   <rect x="7" y="14" width="2" height="2" rx="1" fill="currentColor" />
                   <rect x="11" y="14" width="2" height="2" rx="1" fill="currentColor" />
@@ -133,6 +133,7 @@ export default function HeroSection() {
                 animate={{ y: [0, -20, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
                 className="absolute top-10 right-10 bg-white p-4 rounded-lg shadow-lg border border-green-100 animate-float1"
+                role="img" aria-label="Пример перевода RUB в AED"
               >
                 <p className="text-sm font-semibold text-gray-900">USD → EUR</p>
                 <p className="text-2xl font-bold text-success">$5,000</p>
@@ -141,8 +142,9 @@ export default function HeroSection() {
                 animate={{ y: [0, 20, 0] }}
                 transition={{ duration: 4, repeat: Infinity, delay: 1 }}
                 className="absolute bottom-10 left-10 bg-white p-4 rounded-lg shadow-lg border border-gray-100 animate-float2"
+                role="img" aria-label="Покрытие 45+ стран мира"
               >
-                <p className="text-sm font-semibold text-gray-900">45+ стран</p>
+                <p className="text-sm font-semibold text-gray-900">60+ стран</p>
                 <p className="text-xs text-gray-600">Покрытие по всему миру</p>
               </motion.div>
             </div>
@@ -188,10 +190,10 @@ export default function HeroSection() {
         </div>
         {/* SEO-текстовый блок для повышения плотности ключевых слов */}
         <div className="mt-12 max-w-3xl mx-auto text-gray-700 text-base leading-7 bg-white/80 rounded-xl shadow p-6">
-          <strong>Paynix</strong> — это современная платформа для международных платежей и переводов для бизнеса, ВЭД, импорта и экспорта. Мы помогаем компаниям проводить <b>платежи без SWIFT</b> в <b>Китай</b>, <b>Турцию</b>, <b>ОАЭ</b> и ещё 60 стран мира, обходя ограничения и блокировки традиционных банков. Наши решения позволяют легально осуществлять <b>международные переводы для ВЭД</b> с учётом всех требований валютного контроля и законодательства.<br /><br />
+          <strong>Paynix</strong> — это современная платформа для международных платежей и переводов для бизнеса, ВЭД, импорта и экспорта. Мы помогаем компаниям проводить <Link href="/services" className="text-primary hover:underline"><b>платежи без SWIFT</b></Link> в <Link href="#countries" className="text-primary hover:underline"><b>Китай</b></Link>, <Link href="#countries" className="text-primary hover:underline"><b>Турцию</b></Link>, <Link href="#countries" className="text-primary hover:underline"><b>ОАЭ</b></Link> и ещё 60 стран мира, обходя ограничения и блокировки традиционных банков. Наши решения позволяют легально осуществлять <b>международные переводы для ВЭД</b> с учётом всех требований <a href="https://cbr.ru/currency_base/valuecontrol/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">валютного контроля ЦБ РФ</a> и законодательства.<br /><br />
           Благодаря прямым договорам с финансовыми институтами и корпоративным счетам в разных юрисдикциях, мы обеспечиваем быстрые расчёты — от 1 дня, с минимальной комиссией и прозрачными тарифами. Для каждого клиента доступен персональный менеджер, который поможет оформить инвойс, подготовить документы и выбрать оптимальный маршрут платежа.<br /><br />
           <b>Paynix</b> — это не только платёжная система, но и образовательный хаб: мы публикуем инструкции, гайды и FAQ по международным переводам, валютному контролю, санкциям и обходу ограничений. Наши клиенты — это более 12 000 компаний, которые уже оценили надёжность, безопасность и скорость работы платформы.<br /><br />
-          Если вы ищете легальные альтернативы SWIFT, хотите снизить риски блокировок и санкций, оптимизировать комиссии и тарифы, а также получить экспертную поддержку по ВЭД — <b>Paynix</b> станет вашим надёжным партнёром для международных расчётов.
+          Если вы ищете легальные альтернативы SWIFT, хотите снизить риски блокировок и санкций, оптимизировать комиссии и тарифы, а также получить экспертную поддержку по ВЭД — <b>Paynix</b> станет вашим надёжным партнёром для международных расчётов.<br /><br />Узнайте больше о наших <Link href="/services" className="text-primary hover:underline">услугах для ВЭД</Link>, изучите <Link href="/pricing" className="text-primary hover:underline">тарифы на международные переводы</Link> или <Link href="/faq" className="text-primary hover:underline">читайте полезные статьи</Link> о валютном контроле.
         </div>
         {/* Визуальный FAQ-блок на главной */}
         <div className="mt-12 max-w-2xl mx-auto bg-gray-50 rounded-xl shadow p-6">

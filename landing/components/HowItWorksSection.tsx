@@ -98,7 +98,7 @@ export default function HowItWorksSection() {
                       {step.number}
                     </div>
                     <div className="flex items-center space-x-3">
-                      <step.icon className="w-8 h-8 text-gray-600" />
+                      <step.icon className="w-8 h-8 text-gray-600" aria-label={step.title} />
                       <h3 className="text-xl font-semibold text-gray-900">{step.title}</h3>
                     </div>
                   </div>

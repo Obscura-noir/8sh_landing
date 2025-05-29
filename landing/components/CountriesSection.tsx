@@ -85,7 +85,7 @@ export default function CountriesSection() {
                 href={`/send-to/${country.name.toLowerCase().replace(/\s+/g, '-')}`}
                 className="flex flex-col items-center p-4 bg-white rounded-lg hover:shadow-lg transition-all duration-200 hover:-translate-y-1"
               >
-                <span className="text-4xl mb-2" role="img" aria-label={`Флаг ${country.name}`}>{country.flag}</span>
+                <span className="text-4xl mb-2" role="img" aria-label={`Платежи в ${country.name} для бизнеса`}>{country.flag}</span>
                 <span className="text-sm text-center text-gray-700 font-medium">
                   {country.name}
                 </span>

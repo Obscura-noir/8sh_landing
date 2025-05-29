@@ -8,8 +8,8 @@ import ClientHeader from '@/components/ClientHeader'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Международные платежи без SWIFT • Paynix • 60 стран за 1 день',
-  description: 'Платежи в Китай, Турцию, ОАЭ когда банки отказывают. ✓ От 1.5% ✓ Легально ✓ 12,000+ компаний. Оставьте заявку и начните работать →',
+  title: 'Международные платежи без SWIFT для бизнеса • Paynix • От 1 дня',
+  description: 'Платежи в Китай, Турцию, ОАЭ когда банки блокируют. ✓ ВЭД расчеты ✓ От 1.5% ✓ 12000+ компаний. Персональный менеджер. Начните →',
   keywords: [
     'международные платежи',
     'платежная система для вэд',
@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         {/* Yandex.Metrika counter */}
         <Script id="yandex-metrika" strategy="afterInteractive">
@@ -67,6 +67,31 @@ export default function RootLayout({
             });
           `}
         </Script>
+        {/* Organization Schema.org */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Paynix",
+          "description": "Платформа международных переводов без SWIFT для бизнеса",
+          "url": "https://paynix.ru",
+          "logo": "https://paynix.ru/logo.png",
+          "sameAs": [
+            "https://t.me/paynix_support"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+7-800-000-0000",
+            "contactType": "customer service",
+            "availableLanguage": "Russian"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "RU",
+            "addressLocality": "Москва"
+          }
+        }) }} />
+        {/* /Organization Schema.org */}
+        
         {/* FAQ Schema.org */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
@@ -74,26 +99,98 @@ export default function RootLayout({
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Как быстро проходят платежи?",
+              "name": "Как быстро проходят международные платежи через Paynix?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "От 1 рабочего дня в зависимости от страны."
+                "text": "Обычно от 1 рабочего дня, в зависимости от страны назначения и валюты. Мы используем прямые каналы и корпоративные счета для ускорения переводов."
               }
             },
             {
               "@type": "Question",
-              "name": "Как зарегистрироваться?",
+              "name": "Какие документы нужны для перевода?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Перейдите на страницу регистрации и заполните форму."
+                "text": "Для большинства платежей требуется инвойс, контракт и подтверждение назначения платежа. Персональный менеджер поможет собрать все необходимые документы."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Можно ли отправить платеж без SWIFT?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, Paynix предлагает альтернативные маршруты для международных переводов без использования SWIFT, что позволяет обходить ограничения и блокировки."
               }
             }
           ]
         }) }} />
         {/* /FAQ Schema.org */}
+        
+        {/* Service Schema.org */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Международные платежи без SWIFT",
+          "description": "Быстрые и безопасные международные переводы для бизнеса в обход SWIFT системы",
+          "provider": {
+            "@type": "Organization",
+            "name": "Paynix"
+          },
+          "serviceType": "Financial Services",
+          "areaServed": "RU",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Международные переводы",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Платежи в Китай"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Платежи в Турцию"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Платежи в ОАЭ"
+                }
+              }
+            ]
+          }
+        }) }} />
+        {/* /Service Schema.org */}
         {/* /Yandex.Metrika counter */}
+        {/* Critical CSS inline */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.6;color:#374151}
+          .container{max-width:1200px;margin:0 auto;padding:0 1rem}
+          header{position:fixed;top:0;left:0;right:0;z-index:40;background-color:rgba(255,255,255,0.95)}
+          .btn{display:inline-flex;align-items:center;justify-content:center;padding:0.75rem 1.5rem;border-radius:0.5rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s}
+          .btn-primary{background-color:#3b82f6;color:white}
+          .btn-primary:hover{background-color:#2563eb}
+          h1{font-size:2.5rem;font-weight:700;line-height:1.2;margin-bottom:1.5rem;color:#111827}
+          @media (max-width:768px){h1{font-size:2rem}.container{padding:0 0.75rem}}
+        ` }} />
+        {/* Performance optimization */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://mc.yandex.ru" />
         <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/css/critical.css" as="style" />
+        <link rel="stylesheet" href="/styles/critical.css" />
+        <meta property="og:title" content="Paynix - Международные платежи без SWIFT для бизнеса" />
+        <meta property="og:description" content="Платежи в Китай, Турцию, ОАЭ когда банки блокируют. От 1.5%, легально, 12000+ компаний" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://paynix.ru" />
+        <meta property="og:image" content="https://paynix.ru/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Международные платежи без SWIFT • Paynix" />
+        <meta name="twitter:description" content="Платежи в Китай, Турцию, ОАЭ. От 1.5%, легально, 12000+ компаний" />
       </head>
       <body className={inter.className}>
         {/* Yandex.Metrika noscript */}

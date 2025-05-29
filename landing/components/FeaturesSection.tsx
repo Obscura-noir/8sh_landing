@@ -74,7 +74,7 @@ export default function FeaturesSection() {
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <feature.icon className="w-6 h-6 text-primary" />
+                      <feature.icon className="w-6 h-6 text-primary" aria-label={feature.title} />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">
