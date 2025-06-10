@@ -3,3 +3,7 @@ landing/package-lock.json
 landing/node_modules
 node_modules
 package-lock.json
+.next/
+
+.next/trace
+.next/server/next-font-manifest.json
