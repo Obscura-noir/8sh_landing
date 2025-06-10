@@ -6,7 +6,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 
 const problems = [
   {
-    title: 'Западные AI-сервисы перестали работать в России',
+    title: 'Западные ИИ-сервисы перестали работать в России',
     description: 'ChatGPT, Claude, Midjourney больше недоступны',
   },
   {
@@ -22,7 +22,7 @@ const problems = [
     description: 'Непонятно, какой будет реальный эффект',
   },
   {
-    title: 'Конкуренты уже используют AI, а вы отстаете',
+    title: 'Конкуренты уже используют ИИ, а вы отстаете',
     description: 'Теряете клиентов и упускаете возможности',
   },
 ]

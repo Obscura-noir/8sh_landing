@@ -21,7 +21,7 @@ export default function Hero() {
             className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-6"
           >
             ChatGPT больше не работает?{' '}
-            <span className="gradient-text">Внедрим российский AI за 30 дней</span>
+            <span className="gradient-text">Внедрим российский ИИ за 30 дней</span>
           </motion.h1>
           
           <motion.p
@@ -30,7 +30,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-lg md:text-xl text-gray-600 mb-8"
           >
-            Помогаем малому и среднему бизнесу автоматизировать процессы с помощью YandexGPT, GigaChat и других российских AI-решений
+            Помогаем малому и среднему бизнесу автоматизировать процессы с помощью YandexGPT, GigaChat и других российских ИИ-решений
           </motion.p>
           
           <motion.div
@@ -40,7 +40,7 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
           >
             <a href="#contact" className="btn-primary text-lg">
-              Получить бесплатный AI-аудит за 5 дней
+              Получить бесплатный ИИ-аудит за 5 дней
             </a>
             <a href="#calculator" className="btn-secondary text-lg">
               Рассчитать экономию

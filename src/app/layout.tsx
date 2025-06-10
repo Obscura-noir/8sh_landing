@@ -5,12 +5,12 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 
 export const metadata: Metadata = {
-  title: 'Цифровая Лаборатория Каталист - Внедрение AI для бизнеса',
-  description: 'Внедряем российский AI в ваш бизнес за 30 дней. Автоматизация процессов с YandexGPT, GigaChat для малого и среднего бизнеса.',
-  keywords: 'AI консалтинг, российский искусственный интеллект, YandexGPT, GigaChat, автоматизация бизнеса',
+  title: 'Цифровая Лаборатория Каталист - Внедрение ИИ для бизнеса',
+  description: 'Внедряем российский ИИ в ваш бизнес за 30 дней. Автоматизация процессов с YandexGPT, GigaChat для малого и среднего бизнеса.',
+  keywords: 'ИИ консалтинг, российский искусственный интеллект, YandexGPT, GigaChat, автоматизация бизнеса',
   openGraph: {
     title: 'Цифровая Лаборатория Каталист',
-    description: 'Внедряем российский AI в ваш бизнес за 30 дней',
+    description: 'Внедряем российский ИИ в ваш бизнес за 30 дней',
     type: 'website',
     locale: 'ru_RU',
   },

@@ -6,7 +6,7 @@ import { CheckIcon } from '@heroicons/react/24/outline'
 
 const solutions = [
   {
-    title: 'Подберем и настроим российские AI под ваши задачи',
+    title: 'Подберем и настроим российские ИИ под ваши задачи',
     description: 'YandexGPT, GigaChat, Kandinsky — выберем оптимальное решение',
   },
   {
@@ -47,7 +47,7 @@ export default function Solutions() {
             Мы решаем эти проблемы
           </h2>
           <p className="text-xl text-gray-600">
-            Комплексный подход к внедрению AI в ваш бизнес
+            Комплексный подход к внедрению ИИ в ваш бизнес
           </p>
         </motion.div>
 

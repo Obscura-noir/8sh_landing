@@ -56,7 +56,7 @@ export default function Calculator() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-            Рассчитайте вашу экономию от AI
+            Рассчитайте вашу экономию от ИИ
           </h2>
           <p className="text-xl text-gray-600">
             Узнайте потенциальный эффект для вашего бизнеса

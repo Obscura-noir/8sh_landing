@@ -32,11 +32,11 @@ export default function Footer() {
       <div className="container-custom py-12 lg:py-16">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
-            <Link href="/" className="text-2xl font-bold gradient-text">
-              Catalyst Lab
+            <Link href="/" className="text-xl sm:text-2xl font-bold gradient-text">
+              Цифровая Лаборатория Каталист
             </Link>
             <p className="text-gray-400 text-sm">
-              Цифровая Лаборатория Каталист — ваш проводник в мир российского AI. 
+              Цифровая Лаборатория Каталист — ваш проводник в мир российского ИИ. 
               Помогаем бизнесу расти с помощью искусственного интеллекта.
             </p>
             <div className="flex space-x-6">

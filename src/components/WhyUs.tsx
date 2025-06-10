@@ -14,8 +14,8 @@ import {
 const advantages = [
   {
     icon: TrophyIcon,
-    title: 'Эксперты в российском AI',
-    description: 'Сертифицированные партнеры Яндекс, Сбер, VK',
+    title: 'Эксперты в российском ИИ',
+    description: 'Партнеры Яндекс, Сбер, VK',
   },
   {
     icon: CurrencyDollarIcon,
@@ -116,35 +116,7 @@ export default function WhyUs() {
           ))}
         </div>
 
-        {/* Team section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-20 text-center"
-        >
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">
-            Команда экспертов с опытом в топовых компаниях
-          </h3>
-          <div className="flex flex-wrap justify-center gap-8 text-gray-600">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Ex-Яндекс
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Ex-Сбер
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Ex-VK
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Ex-Mail.ru
-            </span>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   )

@@ -54,10 +54,10 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Готовы автоматизировать бизнес с российским AI?
+            Готовы автоматизировать бизнес с российским ИИ?
           </h2>
           <p className="text-xl text-gray-300">
-            Получите бесплатный AI-аудит за 5 дней
+            Получите бесплатный ИИ-аудит за 5 дней
           </p>
         </motion.div>
 
@@ -167,7 +167,7 @@ export default function Contact() {
                   value={formData.process}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-white placeholder-gray-400"
-                  placeholder="Опишите процесс или задачу, которую хотите решить с помощью AI"
+                  placeholder="Опишите процесс или задачу, которую хотите решить с помощью ИИ"
                 />
               </div>
 
@@ -175,7 +175,7 @@ export default function Contact() {
                 type="submit"
                 className="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors shadow-lg hover:shadow-xl"
               >
-                Получить бесплатный AI-аудит
+                Получить бесплатный ИИ-аудит
               </button>
 
               <p className="text-sm text-gray-400 text-center">
@@ -221,7 +221,7 @@ export default function Contact() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">Консультацию AI-эксперта в течение 24 часов</span>
+                  <span className="text-gray-300">Консультацию ИИ-эксперта в течение 24 часов</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
@@ -229,7 +229,7 @@ export default function Contact() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">План внедрения AI с расчетом экономии</span>
+                  <span className="text-gray-300">План внедрения ИИ с расчетом экономии</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />

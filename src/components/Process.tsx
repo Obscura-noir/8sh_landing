@@ -7,7 +7,7 @@ const steps = [
   {
     number: '01',
     title: 'Заявка и консультация',
-    description: 'Обсуждаем задачи и определяем потенциал AI',
+    description: 'Обсуждаем задачи и определяем потенциал ИИ',
     duration: '1 день',
   },
   {
@@ -53,7 +53,7 @@ export default function Process() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-            5 шагов к AI-трансформации
+            5 шагов к ИИ-трансформации
           </h2>
           <p className="text-xl text-gray-600">
             Прозрачный процесс с измеримыми результатами на каждом этапе
